@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-FMP_API_KEY = os.getenv("FMP_API_KEY")
+FMP_API_KEY = "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
 
 STATE_FILE = "seen_splits.json"
 
