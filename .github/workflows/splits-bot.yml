@@ -31,6 +31,40 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      - name: Debug env presence
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: |
+          python - <<'PY'
+          import os
+          print("HAS TELEGRAM_TOKEN:", bool(os.getenv("TELEGRAM_TOKEN")))
+          print("HAS CHAT_ID:", bool(os.getenv("CHAT_ID")))
+          print("HAS FMP_API_KEY:", bool(os.getenv("FMP_API_KEY")))
+          print("CHAT_ID VALUE PRESENT:", os.getenv("CHAT_ID"))
+          PY
+
+      - name: Direct Telegram probe
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          python - <<'PY'
+          import os, requests
+          token = os.getenv("TELEGRAM_TOKEN")
+          chat_id = os.getenv("CHAT_ID")
+          url = f"https://api.telegram.org/bot{token}/sendMessage"
+          payload = {
+              "chat_id": chat_id,
+              "text": "🧪 WORKFLOW PROBE: GitHub Actions reached Telegram step"
+          }
+          r = requests.post(url, json=payload, timeout=30)
+          print("TELEGRAM STATUS:", r.status_code)
+          print("TELEGRAM BODY:", r.text[:500])
+          r.raise_for_status()
+          PY
+
       - name: Ensure state file exists
         run: |
           if [ ! -f seen_splits.json ]; then
