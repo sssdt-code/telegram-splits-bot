@@ -1,6 +1,5 @@
 import os
 import requests
-from datetime import datetime
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
@@ -15,8 +14,6 @@ ALLOWED_EXCHANGES = {
     "NYSE AMERICAN",
     "BATS",
 }
-
-BASE_URL = "https://financialmodelingprep.com/api/v3"
 
 
 def send_telegram(text: str) -> None:
@@ -48,23 +45,14 @@ def safe_get_json(url: str):
 
 
 def get_recent_splits():
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    url = f"{BASE_URL}/stock_split_calendar?from={today}&to={today}&apikey={FMP_API_KEY}"
+    url = f"https://financialmodelingprep.com/stable/splits-calendar?apikey={FMP_API_KEY}"
     data = safe_get_json(url)
 
     if data is None:
         return []
 
-    # Иногда API может вернуть dict с historical
-    if isinstance(data, dict):
-        if isinstance(data.get("historical"), list):
-            return data["historical"]
-
-        send_telegram(f"❌ Unexpected splits dict format:\n{str(data)[:500]}")
-        return []
-
     if not isinstance(data, list):
-        send_telegram(f"❌ Unexpected splits type: {type(data).__name__}")
+        send_telegram(f"❌ Unexpected splits format: {type(data).__name__}")
         return []
 
     cleaned = []
@@ -72,13 +60,13 @@ def get_recent_splits():
         if isinstance(item, dict):
             cleaned.append(item)
         else:
-            send_telegram(f"⚠️ Split item skipped, not dict:\n{repr(item)[:300]}")
+            send_telegram(f"⚠️ Split item skipped:\n{repr(item)[:300]}")
 
     return cleaned
 
 
 def get_company_profile(symbol: str):
-    url = f"{BASE_URL}/profile/{symbol}?apikey={FMP_API_KEY}"
+    url = f"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={FMP_API_KEY}"
     data = safe_get_json(url)
 
     if data is None:
@@ -90,7 +78,6 @@ def get_company_profile(symbol: str):
     if isinstance(data, dict):
         return data
 
-    send_telegram(f"⚠️ Bad profile format for {symbol}:\n{repr(data)[:300]}")
     return None
 
 
@@ -105,7 +92,7 @@ def is_allowed_exchange(profile: dict) -> bool:
 
 
 def format_ratio(split: dict) -> str:
-    if "ratio" in split and split["ratio"]:
+    if split.get("ratio"):
         return str(split["ratio"])
 
     numerator = split.get("numerator")
@@ -170,7 +157,6 @@ def main():
 
             symbol = split.get("symbol")
             if not symbol:
-                send_telegram(f"⚠️ Split without symbol skipped:\n{repr(split)[:300]}")
                 continue
 
             profile = get_company_profile(str(symbol))
