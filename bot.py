@@ -19,10 +19,10 @@ ALLOWED_EXCHANGES = {
     "BATS",
 }
 
-DAILY_REPORT_HOUR_UTC = 22
+DAILY_REPORT_HOUR_UTC = 22  # можно потом поменять
 
 
-def send_telegram(text: str, parse_mode: str | None = None) -> None:
+def send_telegram(text: str) -> None:
     if not TELEGRAM_TOKEN or not CHAT_ID:
         print(text)
         return
@@ -33,9 +33,6 @@ def send_telegram(text: str, parse_mode: str | None = None) -> None:
         "text": text,
         "disable_web_page_preview": True,
     }
-    if parse_mode:
-        payload["parse_mode"] = parse_mode
-
     requests.post(url, json=payload, timeout=30)
 
 
@@ -55,18 +52,21 @@ def safe_get_json(url: str):
 
 def load_state() -> dict:
     if not os.path.exists(STATE_FILE):
-        return {"seen": [], "daily_reports": {}}
+        return {
+            "announced": {},
+            "daily_reports": {}
+        }
 
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             if not isinstance(data, dict):
-                return {"seen": [], "daily_reports": {}}
-            data.setdefault("seen", [])
+                return {"announced": {}, "daily_reports": {}}
+            data.setdefault("announced", {})
             data.setdefault("daily_reports", {})
             return data
     except Exception:
-        return {"seen": [], "daily_reports": {}}
+        return {"announced": {}, "daily_reports": {}}
 
 
 def save_state(state: dict) -> None:
@@ -79,6 +79,15 @@ def is_allowed_exchange(exchange: str) -> bool:
     if "OTC" in exchange:
         return False
     return exchange in ALLOWED_EXCHANGES
+
+
+def days_left(split_date_str: str) -> int | None:
+    try:
+        split_date = datetime.strptime(split_date_str, "%Y-%m-%d").date()
+        today = datetime.now(timezone.utc).date()
+        return (split_date - today).days
+    except Exception:
+        return None
 
 
 def normalize_split_item(item: dict) -> dict | None:
@@ -94,6 +103,9 @@ def normalize_split_item(item: dict) -> dict | None:
         return None
 
     date = str(item.get("date", "")).strip()
+    if not date:
+        return None
+
     ratio = item.get("ratio")
     if ratio:
         ratio = str(ratio).strip()
@@ -103,19 +115,22 @@ def normalize_split_item(item: dict) -> dict | None:
         ratio = f"{numerator}:{denominator}" if numerator and denominator else "N/A"
 
     company = str(item.get("companyName", "")).strip() or symbol
-    link = f"https://financialmodelingprep.com/financial-summary/{symbol}"
+
+    left = days_left(date)
+    if left is None:
+        return None
 
     return {
         "symbol": symbol,
         "company": company,
-        "exchange": exchange or "N/A",
-        "date": date or "N/A",
+        "exchange": exchange,
+        "date": date,
         "ratio": ratio,
-        "link": link,
+        "days_left": left,
     }
 
 
-def get_upcoming_splits(days_ahead: int = 7) -> list[dict]:
+def get_upcoming_splits(days_ahead: int = 30) -> list[dict]:
     url = f"https://financialmodelingprep.com/stable/splits-calendar?apikey={FMP_API_KEY}"
     data = safe_get_json(url)
 
@@ -126,21 +141,13 @@ def get_upcoming_splits(days_ahead: int = 7) -> list[dict]:
         send_telegram(f"❌ Unexpected splits format: {type(data).__name__}")
         return []
 
-    today = datetime.now(timezone.utc).date()
-    end_date = today + timedelta(days=days_ahead)
-
     cleaned = []
     for raw in data:
         item = normalize_split_item(raw)
         if not item:
             continue
 
-        try:
-            item_date = datetime.strptime(item["date"], "%Y-%m-%d").date()
-        except Exception:
-            continue
-
-        if today <= item_date <= end_date:
+        if 0 <= item["days_left"] <= days_ahead:
             cleaned.append(item)
 
     cleaned.sort(key=lambda x: (x["date"], x["symbol"]))
@@ -151,15 +158,15 @@ def split_key(item: dict) -> str:
     return f"{item['symbol']}|{item['date']}|{item['ratio']}|{item['exchange']}"
 
 
-def format_split_message(item: dict) -> str:
+def format_announcement(item: dict) -> str:
     return (
-        "📊 <b>New Stock Split</b>\n\n"
-        f"<b>{item['company']}</b>\n"
-        f"Ticker: <b>{item['symbol']}</b>\n"
+        "📢 NEW SPLIT ANNOUNCEMENT\n\n"
+        f"Company: {item['company']}\n"
+        f"Ticker: {item['symbol']}\n"
         f"Exchange: {item['exchange']}\n"
-        f"Ratio: <b>{item['ratio']}</b>\n"
-        f"Date: {item['date']}\n"
-        f"Link: {item['link']}"
+        f"Ratio: {item['ratio']}\n"
+        f"Split Date: {item['date']}\n"
+        f"Days Left: {item['days_left']}"
     )
 
 
@@ -174,30 +181,48 @@ def should_send_daily_report(state: dict) -> bool:
     return last_sent != today_key
 
 
-def format_daily_report(items: list[dict], new_count: int) -> str:
-    lines = [
-        "🗓 <b>Daily Split Report</b>",
-        "",
-        f"Upcoming next 7 days: {len(items)}",
-        f"New alerts sent today on this run: {new_count}",
-        "",
-    ]
+def format_daily_report(items: list[dict]) -> str:
+    lines = ["🗓 UPCOMING SPLITS", ""]
 
     if not items:
-        lines.append("No upcoming stock splits found on tracked US exchanges.")
+        lines.append("No upcoming stock splits found.")
         return "\n".join(lines)
 
-    lines.append("Next 7 days:")
-    for item in items[:30]:
+    for item in items[:50]:
         lines.append(
-            f"• {item['date']} — <b>{item['symbol']}</b> ({item['exchange']}) — {item['ratio']}"
+            f"{item['date']} — {item['symbol']} — {item['ratio']} — {item['days_left']} days left"
         )
 
-    if len(items) > 30:
+    if len(items) > 50:
         lines.append("")
-        lines.append(f"... and {len(items) - 30} more")
+        lines.append(f"... and {len(items) - 50} more")
 
     return "\n".join(lines)
+
+
+def remove_expired(state: dict) -> None:
+    announced = state.get("announced", {})
+    keep = {}
+
+    for key, item in announced.items():
+        try:
+            if int(item.get("days_left", -999)) >= 0:
+                keep[key] = item
+        except Exception:
+            continue
+
+    state["announced"] = keep
+
+
+def refresh_days_left_in_state(state: dict) -> None:
+    announced = state.get("announced", {})
+
+    for key, item in list(announced.items()):
+        left = days_left(item.get("date", ""))
+        if left is None:
+            continue
+        item["days_left"] = left
+        announced[key] = item
 
 
 def validate_env() -> bool:
@@ -222,28 +247,40 @@ def main():
 
     try:
         state = load_state()
-        seen = set(state.get("seen", []))
+        state.setdefault("announced", {})
+        state.setdefault("daily_reports", {})
 
-        upcoming = get_upcoming_splits(days_ahead=7)
-        new_items = []
+        refresh_days_left_in_state(state)
+        remove_expired(state)
+
+        upcoming = get_upcoming_splits(days_ahead=30)
+        new_announcements = []
 
         for item in upcoming:
             key = split_key(item)
-            if key not in seen:
-                seen.add(key)
-                new_items.append(item)
+            if key not in state["announced"]:
+                state["announced"][key] = item
+                new_announcements.append(item)
+            else:
+                state["announced"][key] = item
 
-        for item in new_items:
-            send_telegram(format_split_message(item), parse_mode="HTML")
+        for item in new_announcements:
+            send_telegram(format_announcement(item))
+
+        current_items = list(state["announced"].values())
+        current_items = [x for x in current_items if x.get("days_left", -1) >= 0]
+        current_items.sort(key=lambda x: (x["date"], x["symbol"]))
 
         if should_send_daily_report(state):
-            send_telegram(format_daily_report(upcoming, len(new_items)), parse_mode="HTML")
+            send_telegram(format_daily_report(current_items))
             state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-        state["seen"] = sorted(list(seen))[-5000:]
         save_state(state)
 
-        print(f"Done. New sent: {len(new_items)}. Upcoming found: {len(upcoming)}")
+        print(
+            f"Done. New announcements: {len(new_announcements)}. "
+            f"Tracked future splits: {len(current_items)}"
+        )
 
     except Exception as e:
         send_telegram(f"❌ ERROR:\n{type(e).__name__}: {str(e)}")

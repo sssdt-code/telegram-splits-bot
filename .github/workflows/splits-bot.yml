@@ -1,40 +1,61 @@
-name: Telegram Probe
+name: Splits Bot
 
 on:
+  schedule:
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: splits-bot-main
+  cancel-in-progress: false
+
 jobs:
-  probe:
+  run-bot:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install requests
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
         run: pip install requests
 
-      - name: Send Telegram test
+      - name: Ensure state file exists
+        run: |
+          if [ ! -f seen_splits.json ]; then
+            echo '{"announced":{},"daily_reports":{}}' > seen_splits.json
+          fi
+
+      - name: Run bot
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+        run: python bot.py
+
+      - name: Commit updated state
         run: |
-          python - <<'PY'
-          import os
-          import requests
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          token = os.getenv("TELEGRAM_TOKEN")
-          chat_id = os.getenv("CHAT_ID")
+          git add seen_splits.json
 
-          print("HAS TOKEN:", bool(token))
-          print("HAS CHAT_ID:", bool(chat_id))
-          print("CHAT_ID:", chat_id)
+          if git diff --cached --quiet; then
+            echo "No state changes to commit"
+            exit 0
+          fi
 
-          url = f"https://api.telegram.org/bot{token}/sendMessage"
-          payload = {
-              "chat_id": chat_id,
-              "text": "🧪 MINIMAL TELEGRAM PROBE FROM GITHUB ACTIONS"
-          }
-
-          r = requests.post(url, json=payload, timeout=30)
-          print("STATUS:", r.status_code)
-          print("BODY:", r.text)
-          r.raise_for_status()
-          PY
+          git commit -m "Update split state"
+          git pull --rebase origin main
+          git push
