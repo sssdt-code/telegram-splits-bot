@@ -1,21 +1,24 @@
-name: Telegram Probe
+name: Splits Bot
 
 on:
   workflow_dispatch:
 
 jobs:
-  probe:
+  run-bot:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Telegram directly with curl
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run bot
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: |
-          echo "HAS TOKEN: ${#TELEGRAM_TOKEN}"
-          echo "HAS CHAT_ID: $CHAT_ID"
-
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-            -H "Content-Type: application/json" \
-            -d "{\"chat_id\":\"${CHAT_ID}\",\"text\":\"🧪 CURL PROBE FROM GITHUB ACTIONS\"}"
+        run: python bot.py
