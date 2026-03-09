@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
@@ -19,7 +19,6 @@ ALLOWED_EXCHANGES = {
     "BATS",
 }
 
-# 22 UTC = 18:00 по Доминикане при UTC-4
 DAILY_REPORT_HOUR_UTC = 22
 
 
@@ -235,8 +234,6 @@ def validate_env() -> bool:
         missing.append("TELEGRAM_TOKEN")
     if not CHAT_ID:
         missing.append("CHAT_ID")
-    if not FMP_API_KEY:
-        missing.append("FMP_API_KEY")
 
     if missing:
         send_telegram("❌ Missing env vars: " + ", ".join(missing))
