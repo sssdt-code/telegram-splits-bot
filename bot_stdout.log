@@ -1,2 +1,4 @@
 Новых сплитов нет.
 Новых сплитов нет.
+Missing TELEGRAM_TOKEN
+❌ Missing env vars: TELEGRAM_TOKEN, CHAT_ID, FMP_API_KEY
