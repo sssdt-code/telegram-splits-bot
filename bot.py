@@ -145,7 +145,11 @@ def main():
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     main()
 if __name__ == "__main__":
     send_telegram("✅ TEST: GitHub Actions работает.")
 
+=======
+    main()
+>>>>>>> 2bae43c65640903af1632e32ab85fab73a03987e
