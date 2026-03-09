@@ -61,6 +61,12 @@ def days_left(date_str):
         return None
 
 
+def format_days_left(days):
+    if days == 1:
+        return "1 day left"
+    return f"{days} days left"
+
+
 def normalize_ratio(item):
     ratio = item.get("ratio")
 
@@ -146,23 +152,36 @@ def format_announcement(item):
         f"Exchange: {item['exchange']}\n"
         f"Ratio: {item['ratio']}\n"
         f"Split Date: {item['date']}\n"
-        f"Days Left: {item['days_left']}"
+        f"{format_days_left(item['days_left'])}"
     )
 
 
 def format_daily(items):
     lines = ["🗓 UPCOMING SPLITS", ""]
 
-    if not items:
+    next_7 = [i for i in items if 0 <= i["days_left"] <= 7]
+    next_30 = [i for i in items if 8 <= i["days_left"] <= 30]
+
+    if not next_7 and not next_30:
         lines.append("No upcoming stock splits found.")
         return "\n".join(lines)
 
-    for i in items:
-        lines.append(
-            f"{i['date']} — {i['symbol']} — {i['ratio']} — {i['days_left']} days"
-        )
+    if next_7:
+        lines.append("Next 7 days:")
+        for i in next_7:
+            lines.append(
+                f"{i['date']} — {i['symbol']} — {i['ratio']} — {format_days_left(i['days_left'])}"
+            )
+        lines.append("")
 
-    return "\n".join(lines)
+    if next_30:
+        lines.append("8–30 days:")
+        for i in next_30:
+            lines.append(
+                f"{i['date']} — {i['symbol']} — {i['ratio']} — {format_days_left(i['days_left'])}"
+            )
+
+    return "\n".join(lines).strip()
 
 
 def main():
@@ -183,7 +202,6 @@ def main():
     for s in new:
         send_telegram(format_announcement(s))
 
-    # Всегда шлём сводку при ручном/плановом запуске
     send_telegram(format_daily(splits))
 
     save_state(state)
