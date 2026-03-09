@@ -9,6 +9,6 @@ jobs:
     steps:
       - name: Send Telegram message
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
-            -H "Content-Type: application/json" \
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \\
+            -H "Content-Type: application/json" \\
             -d '{"chat_id":"${{ secrets.CHAT_ID }}","text":"🧪 NEW WORKFLOW TELEGRAM TEST"}'
