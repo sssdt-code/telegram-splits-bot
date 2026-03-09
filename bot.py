@@ -19,7 +19,7 @@ ALLOWED_EXCHANGES = {
     "BATS",
 }
 
-DAILY_REPORT_HOUR_UTC = 22  # 18:00 в Доминикане при UTC-4
+DAILY_REPORT_HOUR_UTC = 22
 
 
 def send_telegram(text: str, parse_mode: str | None = None) -> None:
@@ -103,12 +103,12 @@ def normalize_split_item(item: dict) -> dict | None:
         denominator = item.get("denominator")
         ratio = f"{numerator}:{denominator}" if numerator and denominator else "N/A"
 
-    company = str(item.get("companyName", "")).strip()
+    company = str(item.get("companyName", "")).strip() or symbol
     link = f"https://financialmodelingprep.com/financial-summary/{symbol}"
 
     return {
         "symbol": symbol,
-        "company": company or symbol,
+        "company": company,
         "exchange": exchange or "N/A",
         "date": date or "N/A",
         "ratio": ratio,
@@ -228,12 +228,22 @@ def main():
         for item in new_items:
             send_telegram(format_split_message(item), parse_mode="HTML")
 
+        report_sent = False
         if should_send_daily_report(state):
             send_telegram(format_daily_report(upcoming), parse_mode="HTML")
             state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            report_sent = True
 
         state["seen"] = sorted(list(seen))[-5000:]
         save_state(state)
+
+        send_telegram(
+            f"🧪 DEBUG\n"
+            f"Upcoming found: {len(upcoming)}\n"
+            f"New sent: {len(new_items)}\n"
+            f"Daily report sent: {report_sent}\n"
+            f"Seen stored: {len(state['seen'])}"
+        )
 
         print(f"Done. New sent: {len(new_items)}. Upcoming found: {len(upcoming)}")
 
