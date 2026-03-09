@@ -19,8 +19,6 @@ ALLOWED_EXCHANGES = {
     "BATS",
 }
 
-DAILY_REPORT_HOUR_UTC = 22  # можно потом поменять
-
 
 def send_telegram(text: str) -> None:
     if not TELEGRAM_TOKEN or not CHAT_ID:
@@ -52,10 +50,7 @@ def safe_get_json(url: str):
 
 def load_state() -> dict:
     if not os.path.exists(STATE_FILE):
-        return {
-            "announced": {},
-            "daily_reports": {}
-        }
+        return {"announced": {}, "daily_reports": {}}
 
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
@@ -81,7 +76,7 @@ def is_allowed_exchange(exchange: str) -> bool:
     return exchange in ALLOWED_EXCHANGES
 
 
-def days_left(split_date_str: str) -> int | None:
+def days_left(split_date_str: str):
     try:
         split_date = datetime.strptime(split_date_str, "%Y-%m-%d").date()
         today = datetime.now(timezone.utc).date()
@@ -90,7 +85,7 @@ def days_left(split_date_str: str) -> int | None:
         return None
 
 
-def normalize_split_item(item: dict) -> dict | None:
+def normalize_split_item(item: dict):
     if not isinstance(item, dict):
         return None
 
@@ -130,7 +125,7 @@ def normalize_split_item(item: dict) -> dict | None:
     }
 
 
-def get_upcoming_splits(days_ahead: int = 30) -> list[dict]:
+def get_upcoming_splits(days_ahead: int = 30):
     url = f"https://financialmodelingprep.com/stable/splits-calendar?apikey={FMP_API_KEY}"
     data = safe_get_json(url)
 
@@ -170,18 +165,7 @@ def format_announcement(item: dict) -> str:
     )
 
 
-def should_send_daily_report(state: dict) -> bool:
-    now_utc = datetime.now(timezone.utc)
-    today_key = now_utc.strftime("%Y-%m-%d")
-    last_sent = state.get("daily_reports", {}).get("splits")
-
-    if now_utc.hour < DAILY_REPORT_HOUR_UTC:
-        return False
-
-    return last_sent != today_key
-
-
-def format_daily_report(items: list[dict]) -> str:
+def format_daily_report(items):
     lines = ["🗓 UPCOMING SPLITS", ""]
 
     if not items:
@@ -198,31 +182,6 @@ def format_daily_report(items: list[dict]) -> str:
         lines.append(f"... and {len(items) - 50} more")
 
     return "\n".join(lines)
-
-
-def remove_expired(state: dict) -> None:
-    announced = state.get("announced", {})
-    keep = {}
-
-    for key, item in announced.items():
-        try:
-            if int(item.get("days_left", -999)) >= 0:
-                keep[key] = item
-        except Exception:
-            continue
-
-    state["announced"] = keep
-
-
-def refresh_days_left_in_state(state: dict) -> None:
-    announced = state.get("announced", {})
-
-    for key, item in list(announced.items()):
-        left = days_left(item.get("date", ""))
-        if left is None:
-            continue
-        item["days_left"] = left
-        announced[key] = item
 
 
 def validate_env() -> bool:
@@ -250,9 +209,6 @@ def main():
         state.setdefault("announced", {})
         state.setdefault("daily_reports", {})
 
-        refresh_days_left_in_state(state)
-        remove_expired(state)
-
         upcoming = get_upcoming_splits(days_ahead=30)
         new_announcements = []
 
@@ -271,9 +227,7 @@ def main():
         current_items = [x for x in current_items if x.get("days_left", -1) >= 0]
         current_items.sort(key=lambda x: (x["date"], x["symbol"]))
 
-        if should_send_daily_report(state):
-            send_telegram(format_daily_report(current_items))
-            state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        send_telegram(format_daily_report(current_items))
 
         save_state(state)
 
