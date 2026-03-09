@@ -3,14 +3,8 @@ import json
 import requests
 from datetime import datetime, timezone
 
-# ===============================
-# CONFIG
-# ===============================
-
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-
-# Временно захардкожен ключ
 FMP_API_KEY = "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
 
 STATE_FILE = "seen_splits.json"
@@ -25,12 +19,6 @@ ALLOWED_EXCHANGES = {
     "BATS",
 }
 
-DAILY_REPORT_HOUR_UTC = 22  # 18:00 DR time
-
-
-# ===============================
-# TELEGRAM
-# ===============================
 
 def send_telegram(text: str):
     if not TELEGRAM_TOKEN or not CHAT_ID:
@@ -39,40 +27,31 @@ def send_telegram(text: str):
         return
 
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-
     payload = {
         "chat_id": CHAT_ID,
         "text": text,
         "disable_web_page_preview": True,
     }
-
     r = requests.post(url, json=payload, timeout=30)
     print("Telegram status:", r.status_code)
+    print("Telegram body:", r.text[:300])
 
-
-# ===============================
-# STATE
-# ===============================
 
 def load_state():
     if not os.path.exists(STATE_FILE):
-        return {"announced": {}, "daily_reports": {}}
+        return {"announced": {}}
 
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
-        return {"announced": {}, "daily_reports": {}}
+        return {"announced": {}}
 
 
 def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2)
 
-
-# ===============================
-# HELPERS
-# ===============================
 
 def days_left(date_str):
     try:
@@ -105,15 +84,11 @@ def normalize_ratio(item):
 def is_allowed(exchange):
     if not exchange:
         return False
-    exchange = exchange.upper()
+    exchange = str(exchange).upper()
     if "OTC" in exchange:
         return False
     return exchange in ALLOWED_EXCHANGES
 
-
-# ===============================
-# DATA FETCH
-# ===============================
 
 def get_splits():
     url = f"https://financialmodelingprep.com/stable/splits-calendar?apikey={FMP_API_KEY}"
@@ -123,9 +98,14 @@ def get_splits():
         send_telegram(f"❌ FMP API ERROR {r.status_code}")
         return []
 
-    data = r.json()
+    try:
+        data = r.json()
+    except Exception as e:
+        send_telegram(f"❌ JSON error: {type(e).__name__}: {str(e)}")
+        return []
 
     if not isinstance(data, list):
+        send_telegram(f"❌ Unexpected API format: {type(data).__name__}")
         return []
 
     cleaned = []
@@ -160,10 +140,6 @@ def get_splits():
     return cleaned
 
 
-# ===============================
-# FORMATTING
-# ===============================
-
 def format_announcement(item):
     return (
         "📢 NEW SPLIT ANNOUNCEMENT\n\n"
@@ -190,38 +166,26 @@ def format_daily(items):
     return "\n".join(lines)
 
 
-# ===============================
-# MAIN
-# ===============================
-
 def main():
     state = load_state()
     state.setdefault("announced", {})
-    state.setdefault("daily_reports", {})
 
     splits = get_splits()
-
     new = []
 
     for s in splits:
-        key = f"{s['symbol']}|{s['date']}|{s['ratio']}"
-
+        key = f"{s['symbol']}|{s['date']}|{s['ratio']}|{s['exchange']}"
         if key not in state["announced"]:
             state["announced"][key] = s
             new.append(s)
+        else:
+            state["announced"][key] = s
 
-    # New announcements
     for s in new:
         send_telegram(format_announcement(s))
 
-    # Daily report (always send once per day after hour)
-    now = datetime.now(timezone.utc)
-    today_key = now.strftime("%Y-%m-%d")
-
-    if now.hour >= DAILY_REPORT_HOUR_UTC:
-        if state["daily_reports"].get("splits") != today_key:
-            send_telegram(format_daily(splits))
-            state["daily_reports"]["splits"] = today_key
+    # ВАЖНО: теперь сводка шлётся КАЖДЫЙ запуск
+    send_telegram(format_daily(splits))
 
     save_state(state)
 
