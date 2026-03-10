@@ -27,7 +27,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests pandas lxml
+        run: pip install requests
 
       - name: Ensure state file exists
         run: |
