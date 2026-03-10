@@ -27,9 +27,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install requests pandas lxml playwright
-          playwright install --with-deps chromium
+        run: pip install requests
 
       - name: Ensure state file exists
         run: |
