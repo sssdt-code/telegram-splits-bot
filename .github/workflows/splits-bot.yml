@@ -27,12 +27,14 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          pip install requests pandas lxml playwright
+          playwright install --with-deps chromium
 
       - name: Ensure state file exists
         run: |
           if [ ! -f seen_splits.json ]; then
-            echo '{"announced":{}}' > seen_splits.json
+            echo '{"announced":{},"daily_reports":{}}' > seen_splits.json
           fi
 
       - name: Run bot
@@ -40,6 +42,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: python bot.py
 
       - name: Commit updated state
