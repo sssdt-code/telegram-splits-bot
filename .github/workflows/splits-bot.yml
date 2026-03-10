@@ -32,7 +32,7 @@ jobs:
       - name: Ensure state file exists
         run: |
           if [ ! -f seen_splits.json ]; then
-            echo '{"announced":{},"daily_reports":{}}' > seen_splits.json
+            echo '{"announced":{}}' > seen_splits.json
           fi
 
       - name: Run bot

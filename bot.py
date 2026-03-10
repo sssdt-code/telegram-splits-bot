@@ -7,16 +7,24 @@ from datetime import datetime, timedelta, timezone
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-FMP_API_KEY = os.getenv("FMP_API_KEY") or "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
-GITHUB_EVENT_NAME = os.getenv("GITHUB_EVENT_NAME", "")
+FMP_API_KEY = "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
 
 STATE_FILE = "seen_splits.json"
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+ALLOWED_EXCHANGES = {
+    "NASDAQ",
+    "NYSE",
+    "AMEX",
+    "ARCA",
+    "NYSEARCA",
+    "NYSE AMERICAN",
+    "BATS",
+    "NASDAQCM",
+    "NASDAQGM",
+    "NASDAQGS",
 }
 
-DAILY_REPORT_HOUR_UTC = 22  # 18:00 DR time if UTC-4
+HEADERS = {"User-Agent": "Mozilla/5.0"}
 
 
 def send_telegram(text: str):
@@ -37,18 +45,17 @@ def send_telegram(text: str):
 
 def load_state():
     if not os.path.exists(STATE_FILE):
-        return {"announced": {}, "daily_reports": {}}
+        return {"announced": {}}
 
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             if not isinstance(data, dict):
-                return {"announced": {}, "daily_reports": {}}
+                return {"announced": {}}
             data.setdefault("announced", {})
-            data.setdefault("daily_reports", {})
             return data
     except Exception:
-        return {"announced": {}, "daily_reports": {}}
+        return {"announced": {}}
 
 
 def save_state(state):
@@ -92,9 +99,8 @@ def parse_date(value):
         "%Y-%m-%d",
         "%b %d, %Y",
         "%B %d, %Y",
-        "%m/%d/%Y",
         "%d %b %Y",
-        "%d %B %Y",
+        "%m/%d/%Y",
     ]
 
     for fmt in formats:
@@ -124,8 +130,7 @@ def normalize_ratio(raw_ratio=None, numerator=None, denominator=None):
         r = str(raw_ratio).strip()
         r = r.replace(" ", "")
         r = r.replace("-for-", ":").replace("/", ":")
-        if "for" in r.lower():
-            r = r.lower().replace("for", ":")
+        r = r.replace("for", ":").replace("FOR", ":")
         return r.upper()
 
     if numerator and denominator:
@@ -136,15 +141,25 @@ def normalize_ratio(raw_ratio=None, numerator=None, denominator=None):
 
 def is_allowed_exchange(exchange: str):
     ex = str(exchange or "").upper().strip()
-
     if not ex:
         return False
-
     if "OTC" in ex:
         return False
+    return any(k in ex for k in ["NASDAQ", "NYSE", "AMEX", "ARCA", "BATS"])
 
-    keywords = ["NASDAQ", "NYSE", "AMEX", "ARCA", "BATS"]
-    return any(k in ex for k in keywords)
+
+def get_fmp_exchange(symbol: str):
+    url = f"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={FMP_API_KEY}"
+    data = safe_get_json(url)
+
+    if isinstance(data, list) and data and isinstance(data[0], dict):
+        p = data[0]
+        return p.get("exchangeShortName") or p.get("exchange") or ""
+
+    if isinstance(data, dict):
+        return data.get("exchangeShortName") or data.get("exchange") or ""
+
+    return ""
 
 
 def normalize_item(symbol, company, exchange, date, ratio, source):
@@ -175,20 +190,6 @@ def normalize_item(symbol, company, exchange, date, ratio, source):
     }
 
 
-def get_fmp_exchange(symbol: str):
-    url = f"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={FMP_API_KEY}"
-    data = safe_get_json(url)
-
-    if isinstance(data, list) and data and isinstance(data[0], dict):
-        p = data[0]
-        return p.get("exchangeShortName") or p.get("exchange") or ""
-
-    if isinstance(data, dict):
-        return data.get("exchangeShortName") or data.get("exchange") or ""
-
-    return ""
-
-
 def fetch_fmp():
     url = f"https://financialmodelingprep.com/stable/splits-calendar?apikey={FMP_API_KEY}"
     data = safe_get_json(url)
@@ -214,7 +215,6 @@ def fetch_fmp():
             ),
             source="FMP",
         )
-
         if out_item:
             out.append(out_item)
 
@@ -246,6 +246,11 @@ def fetch_yahoo():
     today = datetime.now(timezone.utc).date()
     end = today + timedelta(days=30)
 
+    base_urls = [
+        "https://ca.finance.yahoo.com/calendar/splits",
+        "https://nz.finance.yahoo.com/calendar/splits",
+    ]
+
     windows = []
     cursor = today
     while cursor <= end:
@@ -254,66 +259,65 @@ def fetch_yahoo():
         cursor = w_end + timedelta(days=1)
 
     out = []
-    seen_local = set()
+    seen = set()
 
-    for start_date, end_date in windows:
-        url = f"https://finance.yahoo.com/calendar/splits?from={start_date}&to={end_date}"
-        r = safe_get(url)
-        if r is None or r.status_code != 200:
-            continue
-
-        try:
-            tables = pd.read_html(StringIO(r.text))
-        except Exception:
-            continue
-
-        for df in tables:
-            symbol_col, company_col, ratio_col, date_col = detect_yahoo_columns(df)
-
-            if not symbol_col or not ratio_col or not date_col:
+    for base in base_urls:
+        for start_date, end_date in windows:
+            url = f"{base}?from={start_date}&to={end_date}"
+            r = safe_get(url)
+            if r is None or r.status_code != 200:
                 continue
 
-            for _, row in df.iterrows():
-                symbol = row.get(symbol_col)
-                company = row.get(company_col) if company_col else symbol
-                ratio = row.get(ratio_col)
-                date = row.get(date_col)
+            try:
+                tables = pd.read_html(StringIO(r.text))
+            except Exception:
+                continue
 
-                if pd.isna(symbol) or pd.isna(ratio) or pd.isna(date):
+            for df in tables:
+                symbol_col, company_col, ratio_col, date_col = detect_yahoo_columns(df)
+                if not symbol_col or not ratio_col or not date_col:
                     continue
 
-                symbol = str(symbol).upper().strip()
-                ratio = normalize_ratio(raw_ratio=str(ratio))
-                date = parse_date(date)
+                for _, row in df.iterrows():
+                    symbol = row.get(symbol_col)
+                    company = row.get(company_col) if company_col else symbol
+                    ratio = row.get(ratio_col)
+                    date = row.get(date_col)
 
-                if not symbol or not date:
-                    continue
+                    if pd.isna(symbol) or pd.isna(ratio) or pd.isna(date):
+                        continue
 
-                key = f"{symbol}|{date}|{ratio}"
-                if key in seen_local:
-                    continue
-                seen_local.add(key)
+                    symbol = str(symbol).upper().strip()
+                    ratio = normalize_ratio(raw_ratio=str(ratio))
+                    date = parse_date(date)
+                    if not symbol or not date:
+                        continue
 
-                exchange = get_fmp_exchange(symbol)
-                item = normalize_item(
-                    symbol=symbol,
-                    company=company,
-                    exchange=exchange,
-                    date=date,
-                    ratio=ratio,
-                    source="Yahoo",
-                )
+                    key = f"{symbol}|{date}|{ratio}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
 
-                if item:
-                    out.append(item)
+                    exchange = get_fmp_exchange(symbol)
+                    item = normalize_item(
+                        symbol=symbol,
+                        company=company,
+                        exchange=exchange,
+                        date=date,
+                        ratio=ratio,
+                        source="Yahoo",
+                    )
+
+                    if item:
+                        out.append(item)
 
     return out
 
 
-def merge_items(items_a, items_b):
+def merge_items(a, b):
     merged = {}
 
-    for item in items_a + items_b:
+    for item in a + b:
         key = f"{item['symbol']}|{item['date']}|{item['ratio']}"
         if key not in merged:
             merged[key] = item
@@ -369,7 +373,7 @@ def format_daily(items):
     return "\n".join(lines).strip()
 
 
-def remove_expired(state):
+def refresh_state(state):
     keep = {}
     for key, item in state.get("announced", {}).items():
         left = days_left(item.get("date", ""))
@@ -380,26 +384,10 @@ def remove_expired(state):
     state["announced"] = keep
 
 
-def should_send_daily_report(state):
-    if GITHUB_EVENT_NAME == "workflow_dispatch":
-        return True
-
-    now_utc = datetime.now(timezone.utc)
-    today_key = now_utc.strftime("%Y-%m-%d")
-    last_sent = state.get("daily_reports", {}).get("splits")
-
-    if now_utc.hour < DAILY_REPORT_HOUR_UTC:
-        return False
-
-    return last_sent != today_key
-
-
 def main():
     state = load_state()
     state.setdefault("announced", {})
-    state.setdefault("daily_reports", {})
-
-    remove_expired(state)
+    refresh_state(state)
 
     fmp_items = fetch_fmp()
     yahoo_items = fetch_yahoo()
@@ -418,20 +406,14 @@ def main():
     for s in new_items:
         send_telegram(format_announcement(s))
 
-    current_items = list(state["announced"].values())
-    current_items = [x for x in current_items if x.get("days_left", -1) >= 0]
-    current_items.sort(key=lambda x: (x["date"], x["symbol"]))
-
-    if should_send_daily_report(state):
-        send_telegram(format_daily(current_items))
-        state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    send_telegram(format_daily(list(state["announced"].values())))
 
     save_state(state)
 
     print(
         f"Done. New: {len(new_items)}. "
         f"FMP: {len(fmp_items)}. Yahoo: {len(yahoo_items)}. "
-        f"Merged upcoming: {len(current_items)}"
+        f"Tracked: {len(state['announced'])}"
     )
 
 
