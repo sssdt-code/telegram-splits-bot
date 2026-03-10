@@ -99,8 +99,8 @@ def parse_date(value):
         "%Y-%m-%d",
         "%b %d, %Y",
         "%B %d, %Y",
-        "%d %b %Y",
         "%m/%d/%Y",
+        "%d %b %Y",
     ]
 
     for fmt in formats:
@@ -125,18 +125,35 @@ def format_days_left(days):
     return "1 day left" if days == 1 else f"{days} days left"
 
 
-def normalize_ratio(raw_ratio=None, numerator=None, denominator=None):
-    if raw_ratio not in (None, ""):
-        r = str(raw_ratio).strip()
-        r = r.replace(" ", "")
-        r = r.replace("-for-", ":").replace("/", ":")
-        r = r.replace("for", ":").replace("FOR", ":")
-        return r.upper()
+def normalize_ratio(raw):
+    if raw is None:
+        return "N/A"
 
-    if numerator and denominator:
-        return f"{numerator}:{denominator}"
+    s = str(raw).strip()
+    if not s:
+        return "N/A"
 
-    return "N/A"
+    s = s.replace(" ", "")
+
+    # Yahoo often shows 80.00 - 1.00 -> 80:1
+    if "-" in s and ":" not in s and "/" not in s:
+        parts = [p.strip() for p in s.split("-") if p.strip()]
+        if len(parts) == 2:
+            left = parts[0].replace(".00", "")
+            right = parts[1].replace(".00", "")
+            return f"{left}:{right}"
+
+    if "/" in s:
+        parts = [p.strip() for p in s.split("/") if p.strip()]
+        if len(parts) == 2:
+            return f"{parts[0]}:{parts[1]}"
+
+    if "-for-" in s.lower():
+        parts = s.lower().split("-for-")
+        if len(parts) == 2:
+            return f"{parts[0]}:{parts[1]}".upper()
+
+    return s.upper()
 
 
 def is_allowed_exchange(exchange: str):
@@ -208,11 +225,7 @@ def fetch_fmp():
             company=item.get("companyName"),
             exchange=item.get("exchange"),
             date=item.get("date"),
-            ratio=normalize_ratio(
-                raw_ratio=item.get("ratio"),
-                numerator=item.get("numerator"),
-                denominator=item.get("denominator"),
-            ),
+            ratio=normalize_ratio(item.get("ratio")),
             source="FMP",
         )
         if out_item:
@@ -221,95 +234,85 @@ def fetch_fmp():
     return out
 
 
-def detect_yahoo_columns(df):
-    cols = {str(c).strip().lower(): c for c in df.columns}
-
-    symbol_col = None
-    company_col = None
-    ratio_col = None
-    date_col = None
-
-    for c_lower, c_orig in cols.items():
-        if "symbol" in c_lower or "ticker" in c_lower:
-            symbol_col = c_orig
-        elif "company" in c_lower or "name" in c_lower:
-            company_col = c_orig
-        elif "ratio" in c_lower:
-            ratio_col = c_orig
-        elif "date" in c_lower:
-            date_col = c_orig
-
-    return symbol_col, company_col, ratio_col, date_col
-
-
 def fetch_yahoo():
     today = datetime.now(timezone.utc).date()
     end = today + timedelta(days=30)
 
-    base_urls = [
-        "https://ca.finance.yahoo.com/calendar/splits",
-        "https://nz.finance.yahoo.com/calendar/splits",
+    # Main Yahoo page + regional mirrors
+    urls = [
+        f"https://finance.yahoo.com/calendar/splits?from={today}&to={end}",
+        f"https://ca.finance.yahoo.com/calendar/splits?from={today}&to={end}",
+        f"https://nz.finance.yahoo.com/calendar/splits?from={today}&to={end}",
     ]
-
-    windows = []
-    cursor = today
-    while cursor <= end:
-        w_end = min(cursor + timedelta(days=6), end)
-        windows.append((cursor.strftime("%Y-%m-%d"), w_end.strftime("%Y-%m-%d")))
-        cursor = w_end + timedelta(days=1)
 
     out = []
     seen = set()
 
-    for base in base_urls:
-        for start_date, end_date in windows:
-            url = f"{base}?from={start_date}&to={end_date}"
-            r = safe_get(url)
-            if r is None or r.status_code != 200:
+    for url in urls:
+        r = safe_get(url)
+        if r is None or r.status_code != 200:
+            continue
+
+        try:
+            tables = pd.read_html(StringIO(r.text))
+        except Exception:
+            continue
+
+        for df in tables:
+            # Expected columns usually like:
+            # Symbol | Company | Date | Split Ratio
+            colmap = {str(c).strip().lower(): c for c in df.columns}
+
+            symbol_col = None
+            company_col = None
+            date_col = None
+            ratio_col = None
+
+            for low, orig in colmap.items():
+                if "symbol" in low or "ticker" in low:
+                    symbol_col = orig
+                elif "company" in low or "name" in low:
+                    company_col = orig
+                elif "date" in low:
+                    date_col = orig
+                elif "ratio" in low:
+                    ratio_col = orig
+
+            if not symbol_col or not date_col or not ratio_col:
                 continue
 
-            try:
-                tables = pd.read_html(StringIO(r.text))
-            except Exception:
-                continue
+            for _, row in df.iterrows():
+                symbol = row.get(symbol_col)
+                company = row.get(company_col) if company_col else row.get(symbol_col)
+                date = row.get(date_col)
+                ratio = row.get(ratio_col)
 
-            for df in tables:
-                symbol_col, company_col, ratio_col, date_col = detect_yahoo_columns(df)
-                if not symbol_col or not ratio_col or not date_col:
+                if pd.isna(symbol) or pd.isna(date) or pd.isna(ratio):
                     continue
 
-                for _, row in df.iterrows():
-                    symbol = row.get(symbol_col)
-                    company = row.get(company_col) if company_col else symbol
-                    ratio = row.get(ratio_col)
-                    date = row.get(date_col)
+                symbol = str(symbol).upper().strip()
+                date = parse_date(date)
+                ratio = normalize_ratio(ratio)
 
-                    if pd.isna(symbol) or pd.isna(ratio) or pd.isna(date):
-                        continue
+                if not symbol or not date:
+                    continue
 
-                    symbol = str(symbol).upper().strip()
-                    ratio = normalize_ratio(raw_ratio=str(ratio))
-                    date = parse_date(date)
-                    if not symbol or not date:
-                        continue
+                key = f"{symbol}|{date}|{ratio}"
+                if key in seen:
+                    continue
+                seen.add(key)
 
-                    key = f"{symbol}|{date}|{ratio}"
-                    if key in seen:
-                        continue
-                    seen.add(key)
-
-                    exchange = get_fmp_exchange(symbol)
-                    item = normalize_item(
-                        symbol=symbol,
-                        company=company,
-                        exchange=exchange,
-                        date=date,
-                        ratio=ratio,
-                        source="Yahoo",
-                    )
-
-                    if item:
-                        out.append(item)
+                exchange = get_fmp_exchange(symbol)
+                item = normalize_item(
+                    symbol=symbol,
+                    company=company,
+                    exchange=exchange,
+                    date=date,
+                    ratio=ratio,
+                    source="Yahoo",
+                )
+                if item:
+                    out.append(item)
 
     return out
 
@@ -406,14 +409,16 @@ def main():
     for s in new_items:
         send_telegram(format_announcement(s))
 
-    send_telegram(format_daily(list(state["announced"].values())))
+    current = list(state["announced"].values())
+    current.sort(key=lambda x: (x["date"], x["symbol"]))
+    send_telegram(format_daily(current))
 
     save_state(state)
 
     print(
         f"Done. New: {len(new_items)}. "
         f"FMP: {len(fmp_items)}. Yahoo: {len(yahoo_items)}. "
-        f"Tracked: {len(state['announced'])}"
+        f"Tracked: {len(current)}"
     )
 
 
