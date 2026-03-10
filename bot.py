@@ -1,35 +1,22 @@
 import os
-import re
 import json
 import requests
-from datetime import datetime, timezone
-from bs4 import BeautifulSoup
+import pandas as pd
+from io import StringIO
+from datetime import datetime, timedelta, timezone
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-FMP_API_KEY = "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
+FMP_API_KEY = os.getenv("FMP_API_KEY") or "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
+GITHUB_EVENT_NAME = os.getenv("GITHUB_EVENT_NAME", "")
 
 STATE_FILE = "seen_splits.json"
-
-ALLOWED_EXCHANGES = {
-    "NASDAQ",
-    "NYSE",
-    "AMEX",
-    "ARCA",
-    "NYSEARCA",
-    "NYSE AMERICAN",
-    "BATS",
-    "NASDAQCM",
-    "NASDAQGM",
-    "NASDAQGS",
-}
-
-# Если хочешь, можно добавлять ручные тикеры для контроля
-PRIORITY_TICKERS = {"ELPW", "KIDZ", "SKYQ"}
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
 }
+
+DAILY_REPORT_HOUR_UTC = 22  # 18:00 DR time if UTC-4
 
 
 def send_telegram(text: str):
@@ -45,12 +32,33 @@ def send_telegram(text: str):
     }
     r = requests.post(url, json=payload, timeout=30)
     print("Telegram status:", r.status_code)
+    print("Telegram body:", r.text[:300])
+
+
+def load_state():
+    if not os.path.exists(STATE_FILE):
+        return {"announced": {}, "daily_reports": {}}
+
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if not isinstance(data, dict):
+                return {"announced": {}, "daily_reports": {}}
+            data.setdefault("announced", {})
+            data.setdefault("daily_reports", {})
+            return data
+    except Exception:
+        return {"announced": {}, "daily_reports": {}}
+
+
+def save_state(state):
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
 
 
 def safe_get(url: str):
     try:
-        r = requests.get(url, headers=HEADERS, timeout=30)
-        return r
+        return requests.get(url, headers=HEADERS, timeout=30)
     except Exception as e:
         send_telegram(f"❌ REQUEST ERROR\n{type(e).__name__}: {str(e)}")
         return None
@@ -72,24 +80,30 @@ def safe_get_json(url: str):
         return None
 
 
-def load_state():
-    if not os.path.exists(STATE_FILE):
-        return {"announced": {}}
+def parse_date(value):
+    if value is None:
+        return None
 
-    try:
-        with open(STATE_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if not isinstance(data, dict):
-                return {"announced": {}}
-            data.setdefault("announced", {})
-            return data
-    except Exception:
-        return {"announced": {}}
+    s = str(value).strip()
+    if not s:
+        return None
 
+    formats = [
+        "%Y-%m-%d",
+        "%b %d, %Y",
+        "%B %d, %Y",
+        "%m/%d/%Y",
+        "%d %b %Y",
+        "%d %B %Y",
+    ]
 
-def save_state(state):
-    with open(STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(state, f, indent=2, ensure_ascii=False)
+    for fmt in formats:
+        try:
+            return datetime.strptime(s, fmt).strftime("%Y-%m-%d")
+        except Exception:
+            pass
+
+    return None
 
 
 def days_left(date_str):
@@ -108,15 +122,11 @@ def format_days_left(days):
 def normalize_ratio(raw_ratio=None, numerator=None, denominator=None):
     if raw_ratio not in (None, ""):
         r = str(raw_ratio).strip()
-        if "/" in r:
-            parts = r.split("/")
-            if len(parts) == 2:
-                return f"{parts[0]}:{parts[1]}"
-        if "-for-" in r:
-            parts = r.split("-for-")
-            if len(parts) == 2:
-                return f"{parts[0]}:{parts[1]}"
-        return r
+        r = r.replace(" ", "")
+        r = r.replace("-for-", ":").replace("/", ":")
+        if "for" in r.lower():
+            r = r.lower().replace("for", ":")
+        return r.upper()
 
     if numerator and denominator:
         return f"{numerator}:{denominator}"
@@ -124,47 +134,59 @@ def normalize_ratio(raw_ratio=None, numerator=None, denominator=None):
     return "N/A"
 
 
-def is_allowed(exchange: str, symbol: str = ""):
+def is_allowed_exchange(exchange: str):
     ex = str(exchange or "").upper().strip()
-    sym = str(symbol or "").upper().strip()
+
+    if not ex:
+        return False
 
     if "OTC" in ex:
         return False
 
-    if ex in ALLOWED_EXCHANGES:
-        return True
-
-    if sym in PRIORITY_TICKERS:
-        return True
-
-    return False
+    keywords = ["NASDAQ", "NYSE", "AMEX", "ARCA", "BATS"]
+    return any(k in ex for k in keywords)
 
 
-def normalize_split(symbol, company, exchange, date, ratio, source):
+def normalize_item(symbol, company, exchange, date, ratio, source):
     symbol = str(symbol or "").upper().strip()
     if not symbol:
         return None
 
-    if not is_allowed(exchange, symbol):
-        return None
-
-    date = str(date or "").strip()
-    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+    date = parse_date(date)
+    if not date:
         return None
 
     left = days_left(date)
     if left is None or left < 0 or left > 30:
         return None
 
+    exchange = str(exchange or "").strip()
+    if not is_allowed_exchange(exchange):
+        return None
+
     return {
         "symbol": symbol,
         "company": str(company or symbol).strip() or symbol,
-        "exchange": str(exchange or "N/A").strip(),
+        "exchange": exchange,
         "date": date,
         "ratio": str(ratio or "N/A").strip(),
         "days_left": left,
         "source": source,
     }
+
+
+def get_fmp_exchange(symbol: str):
+    url = f"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={FMP_API_KEY}"
+    data = safe_get_json(url)
+
+    if isinstance(data, list) and data and isinstance(data[0], dict):
+        p = data[0]
+        return p.get("exchangeShortName") or p.get("exchange") or ""
+
+    if isinstance(data, dict):
+        return data.get("exchangeShortName") or data.get("exchange") or ""
+
+    return ""
 
 
 def fetch_fmp():
@@ -180,7 +202,7 @@ def fetch_fmp():
         if not isinstance(item, dict):
             continue
 
-        out_item = normalize_split(
+        out_item = normalize_item(
             symbol=item.get("symbol"),
             company=item.get("companyName"),
             exchange=item.get("exchange"),
@@ -192,86 +214,115 @@ def fetch_fmp():
             ),
             source="FMP",
         )
+
         if out_item:
             out.append(out_item)
 
     return out
 
 
-def fetch_tipranks():
-    url = "https://www.tipranks.com/calendars/stock-splits/upcoming"
-    r = safe_get(url)
-    if r is None or r.status_code != 200:
-        return []
+def detect_yahoo_columns(df):
+    cols = {str(c).strip().lower(): c for c in df.columns}
 
-    soup = BeautifulSoup(r.text, "html.parser")
-    text = soup.get_text("\n", strip=True)
+    symbol_col = None
+    company_col = None
+    ratio_col = None
+    date_col = None
+
+    for c_lower, c_orig in cols.items():
+        if "symbol" in c_lower or "ticker" in c_lower:
+            symbol_col = c_orig
+        elif "company" in c_lower or "name" in c_lower:
+            company_col = c_orig
+        elif "ratio" in c_lower:
+            ratio_col = c_orig
+        elif "date" in c_lower:
+            date_col = c_orig
+
+    return symbol_col, company_col, ratio_col, date_col
+
+
+def fetch_yahoo():
+    today = datetime.now(timezone.utc).date()
+    end = today + timedelta(days=30)
+
+    windows = []
+    cursor = today
+    while cursor <= end:
+        w_end = min(cursor + timedelta(days=6), end)
+        windows.append((cursor.strftime("%Y-%m-%d"), w_end.strftime("%Y-%m-%d")))
+        cursor = w_end + timedelta(days=1)
 
     out = []
+    seen_local = set()
 
-    # Пытаемся вытащить строки типа:
-    # Mar 10, 2026 KIDZ 1-for-50
-    # Mar 12, 2026 ELPW 1-for-80
-    # Mar 16, 2026 SKYQ 1-for-8
-    pattern = re.compile(
-        r"([A-Z][a-z]{2}\s+\d{1,2},\s+\d{4}).{0,80}?([A-Z]{1,6}).{0,80}?(\d+\s*[-/]?\s*for\s*[-/]?\s*\d+|\d+:\d+)",
-        re.IGNORECASE | re.DOTALL,
-    )
-
-    for match in pattern.finditer(text):
-        raw_date, symbol, raw_ratio = match.groups()
+    for start_date, end_date in windows:
+        url = f"https://finance.yahoo.com/calendar/splits?from={start_date}&to={end_date}"
+        r = safe_get(url)
+        if r is None or r.status_code != 200:
+            continue
 
         try:
-            dt = datetime.strptime(raw_date, "%b %d, %Y").strftime("%Y-%m-%d")
+            tables = pd.read_html(StringIO(r.text))
         except Exception:
             continue
 
-        ratio = raw_ratio.replace(" ", "").replace("for", ":").replace("-:", ":").replace(":-", ":")
-        ratio = ratio.replace("-for-", ":").replace("for", ":").replace("/", ":")
-        ratio = ratio.replace("--", "-")
-        ratio = ratio.replace("-", "")
-        # Если получилось 1:50 или 10:1 — оставляем
-        if ":" not in ratio:
-            continue
+        for df in tables:
+            symbol_col, company_col, ratio_col, date_col = detect_yahoo_columns(df)
 
-        symbol = symbol.upper()
+            if not symbol_col or not ratio_col or not date_col:
+                continue
 
-        out_item = normalize_split(
-            symbol=symbol,
-            company=symbol,
-            exchange="NASDAQ" if symbol in PRIORITY_TICKERS else "N/A",
-            date=dt,
-            ratio=ratio,
-            source="TipRanks",
-        )
-        if out_item:
-            out.append(out_item)
+            for _, row in df.iterrows():
+                symbol = row.get(symbol_col)
+                company = row.get(company_col) if company_col else symbol
+                ratio = row.get(ratio_col)
+                date = row.get(date_col)
 
-    # Дедуп внутри источника
-    seen = set()
-    unique = []
-    for x in out:
-        key = f"{x['symbol']}|{x['date']}|{x['ratio']}"
-        if key not in seen:
-            seen.add(key)
-            unique.append(x)
+                if pd.isna(symbol) or pd.isna(ratio) or pd.isna(date):
+                    continue
 
-    return unique
+                symbol = str(symbol).upper().strip()
+                ratio = normalize_ratio(raw_ratio=str(ratio))
+                date = parse_date(date)
+
+                if not symbol or not date:
+                    continue
+
+                key = f"{symbol}|{date}|{ratio}"
+                if key in seen_local:
+                    continue
+                seen_local.add(key)
+
+                exchange = get_fmp_exchange(symbol)
+                item = normalize_item(
+                    symbol=symbol,
+                    company=company,
+                    exchange=exchange,
+                    date=date,
+                    ratio=ratio,
+                    source="Yahoo",
+                )
+
+                if item:
+                    out.append(item)
+
+    return out
 
 
-def merge_splits(*sources):
+def merge_items(items_a, items_b):
     merged = {}
 
-    for source_list in sources:
-        for item in source_list:
-            key = f"{item['symbol']}|{item['date']}|{item['ratio']}|{item['exchange']}"
-            if key not in merged:
+    for item in items_a + items_b:
+        key = f"{item['symbol']}|{item['date']}|{item['ratio']}"
+        if key not in merged:
+            merged[key] = item
+        else:
+            current = merged[key]
+            if current["source"] == "FMP" and item["source"] == "Yahoo":
                 merged[key] = item
-            else:
-                # Предпочитаем запись, где есть company не просто ticker
-                current = merged[key]
-                if current["company"] == current["symbol"] and item["company"] != item["symbol"]:
-                    merged[key] = item
+            elif current["company"] == current["symbol"] and item["company"] != item["symbol"]:
+                merged[key] = item
 
     result = list(merged.values())
     result.sort(key=lambda x: (x["date"], x["symbol"]))
@@ -280,7 +331,7 @@ def merge_splits(*sources):
 
 def format_announcement(item):
     return (
-        "📢 NEW SPLIT ANNOUNCEMENT\n\n"
+        "📢 NEW SPLIT ALERT\n\n"
         f"{item['company']} ({item['symbol']})\n"
         f"Exchange: {item['exchange']}\n"
         f"Ratio: {item['ratio']}\n"
@@ -318,18 +369,46 @@ def format_daily(items):
     return "\n".join(lines).strip()
 
 
+def remove_expired(state):
+    keep = {}
+    for key, item in state.get("announced", {}).items():
+        left = days_left(item.get("date", ""))
+        if left is None or left < 0:
+            continue
+        item["days_left"] = left
+        keep[key] = item
+    state["announced"] = keep
+
+
+def should_send_daily_report(state):
+    if GITHUB_EVENT_NAME == "workflow_dispatch":
+        return True
+
+    now_utc = datetime.now(timezone.utc)
+    today_key = now_utc.strftime("%Y-%m-%d")
+    last_sent = state.get("daily_reports", {}).get("splits")
+
+    if now_utc.hour < DAILY_REPORT_HOUR_UTC:
+        return False
+
+    return last_sent != today_key
+
+
 def main():
     state = load_state()
     state.setdefault("announced", {})
+    state.setdefault("daily_reports", {})
+
+    remove_expired(state)
 
     fmp_items = fetch_fmp()
-    tipranks_items = fetch_tipranks()
-    splits = merge_splits(fmp_items, tipranks_items)
+    yahoo_items = fetch_yahoo()
+    splits = merge_items(fmp_items, yahoo_items)
 
     new_items = []
 
     for s in splits:
-        key = f"{s['symbol']}|{s['date']}|{s['ratio']}|{s['exchange']}"
+        key = f"{s['symbol']}|{s['date']}|{s['ratio']}"
         if key not in state["announced"]:
             state["announced"][key] = s
             new_items.append(s)
@@ -339,14 +418,20 @@ def main():
     for s in new_items:
         send_telegram(format_announcement(s))
 
-    send_telegram(format_daily(splits))
+    current_items = list(state["announced"].values())
+    current_items = [x for x in current_items if x.get("days_left", -1) >= 0]
+    current_items.sort(key=lambda x: (x["date"], x["symbol"]))
+
+    if should_send_daily_report(state):
+        send_telegram(format_daily(current_items))
+        state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     save_state(state)
 
     print(
         f"Done. New: {len(new_items)}. "
-        f"FMP: {len(fmp_items)}. TipRanks: {len(tipranks_items)}. "
-        f"Merged upcoming: {len(splits)}"
+        f"FMP: {len(fmp_items)}. Yahoo: {len(yahoo_items)}. "
+        f"Merged upcoming: {len(current_items)}"
     )
 
 
