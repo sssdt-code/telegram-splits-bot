@@ -1,7 +1,134 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-04"
+    "splits": "2026-10-05"
   },
-  "announced": {}
+  "announced": {
+    "LU|2026-10-23|1:10": {
+      "symbol": "LU",
+      "company": "Lufax Holding Ltd",
+      "exchange": "NYSE",
+      "date": "2026-10-23",
+      "ratio": "1:10",
+      "days_left": 18,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "AMTD|2026-10-19|1:60": {
+      "symbol": "AMTD",
+      "company": "AMTD IDEA Group",
+      "exchange": "NYSE",
+      "date": "2026-10-19",
+      "ratio": "1:60",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "POAS|2026-10-12|1:15": {
+      "symbol": "POAS",
+      "company": "Phaos Technology Holdings (Cayman) Limited",
+      "exchange": "NYSE American",
+      "date": "2026-10-12",
+      "ratio": "1:15",
+      "days_left": 7,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "DXJ|2026-10-09|3:1": {
+      "symbol": "DXJ",
+      "company": "WisdomTree Japan Hedged Equity Fund",
+      "exchange": "NYSE ARCA",
+      "date": "2026-10-09",
+      "ratio": "3:1",
+      "days_left": 4,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "MGF|2026-10-08|1:5": {
+      "symbol": "MGF",
+      "company": "Aberdeen Government Markets Income Fund",
+      "exchange": "NYSE",
+      "date": "2026-10-08",
+      "ratio": "1:5",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "MIN|2026-10-08|1:6": {
+      "symbol": "MIN",
+      "company": "Aberdeen Intermediate Income Fund",
+      "exchange": "NYSE",
+      "date": "2026-10-08",
+      "ratio": "1:6",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "GCDT|2026-10-07|1:6": {
+      "symbol": "GCDT",
+      "company": "Green Circle Decarbonize Technology Limited",
+      "exchange": "NYSE American",
+      "date": "2026-10-07",
+      "ratio": "1:6",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ETHA|2026-10-06|1:3": {
+      "symbol": "ETHA",
+      "company": "iShares Ethereum Trust ETF",
+      "exchange": "NASDAQ",
+      "date": "2026-10-06",
+      "ratio": "1:3",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ITOC|2026-10-06|1:16": {
+      "symbol": "ITOC",
+      "company": "iTonic Holdings Ltd",
+      "exchange": "NASDAQ",
+      "date": "2026-10-06",
+      "ratio": "1:16",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "RUBI|2026-10-06|1.5:1": {
+      "symbol": "RUBI",
+      "company": "Rubico Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-06",
+      "ratio": "1.5:1",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "CMND|2026-10-05|1:8": {
+      "symbol": "CMND",
+      "company": "Clearmind Medicine Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-05",
+      "ratio": "1:8",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "GUTS|2026-10-05|1:12": {
+      "symbol": "GUTS",
+      "company": "Fractyl Health, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-05",
+      "ratio": "1:12",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SCNX|2026-10-05|1:25": {
+      "symbol": "SCNX",
+      "company": "Scienture Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-05",
+      "ratio": "1:25",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "VIVK|2026-10-05|1:15": {
+      "symbol": "VIVK",
+      "company": "Vivakor, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-05",
+      "ratio": "1:15",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    }
+  }
 }
