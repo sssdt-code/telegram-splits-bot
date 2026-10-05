@@ -2,11 +2,9 @@ name: Splits Bot
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    # 08:00 America/Santo_Domingo (UTC-4)
+    - cron: "0 12 * * *"
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: [bot.py]
 
 permissions:
   contents: write
