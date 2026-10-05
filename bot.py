@@ -2,19 +2,25 @@ import os
 import re
 import json
 import html
+import csv
+import io
+from functools import lru_cache
 import requests
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-FMP_API_KEY = os.getenv("FMP_API_KEY") or "GBzfIZThj87JwZgdGYdPmuGsg39PFUmz"
+FMP_API_KEY = os.getenv("FMP_API_KEY", "")
 GITHUB_EVENT_NAME = os.getenv("GITHUB_EVENT_NAME", "")
 
 STATE_FILE = "seen_splits.json"
+SOURCE_ERRORS = []
+CALENDAR_OK = False
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "application/json,text/html,application/xml,*/*",
 }
 
 ALLOWED_EXCHANGES = {
@@ -38,7 +44,16 @@ NEWS_QUERIES = [
 
 def send_telegram(text: str):
     if not TELEGRAM_TOKEN or not CHAT_ID:
-        print(text)
+        raise RuntimeError("TELEGRAM_TOKEN / CHAT_ID not set")
+    if len(text) > 4000:
+        chunk = ""
+        for line in text.splitlines():
+            if len(chunk) + len(line) + 1 > 4000:
+                send_telegram(chunk.rstrip())
+                chunk = ""
+            chunk += line + "\n"
+        if chunk:
+            send_telegram(chunk.rstrip())
         return
 
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -49,14 +64,20 @@ def send_telegram(text: str):
     }
     r = requests.post(url, json=payload, timeout=30)
     print("Telegram status:", r.status_code)
-    print("Telegram body:", r.text[:300])
+    if r.status_code != 200 or not r.json().get("ok"):
+        raise RuntimeError(f"Telegram delivery failed (HTTP {r.status_code})")
 
 
 def safe_get(url: str):
     try:
-        return requests.get(url, headers=HEADERS, timeout=30)
+        r = requests.get(url, headers=HEADERS, timeout=20)
+        if r.status_code != 200:
+            SOURCE_ERRORS.append(f"{url.split('?')[0]}: HTTP {r.status_code}")
+            print("SOURCE ERROR:", SOURCE_ERRORS[-1])
+        return r
     except Exception as e:
-        print("REQUEST ERROR:", type(e).__name__, str(e))
+        SOURCE_ERRORS.append(f"{url.split('?')[0]}: {type(e).__name__}")
+        print("REQUEST ERROR:", SOURCE_ERRORS[-1])
         return None
 
 
@@ -66,7 +87,8 @@ def safe_get_json(url: str):
         return None
     try:
         return r.json()
-    except Exception:
+    except ValueError:
+        SOURCE_ERRORS.append(f"{url.split('?')[0]}: invalid JSON")
         return None
 
 
@@ -93,6 +115,7 @@ def save_state(state):
 
 def parse_date_any(text: str):
     patterns = [
+        ("%m/%d/%Y", r"\b\d{1,2}/\d{1,2}/\d{4}\b"),
         ("%Y-%m-%d", r"\b\d{4}-\d{2}-\d{2}\b"),
         ("%B %d, %Y", r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}\b"),
         ("%b %d, %Y", r"\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.? \d{1,2}, \d{4}\b"),
@@ -108,6 +131,15 @@ def parse_date_any(text: str):
         except Exception:
             pass
 
+    return None
+
+
+def effective_date(text):
+    # Never use the publication/record date as the effective split date.
+    date_pattern = r"(?:\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4}|(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.? \d{1,2}, \d{4})"
+    for cue in [r"(?:begin|commence|start)\s+trading", r"(?:become|be|will be)?\s*effective", r"split[- ]adjusted basis"]:
+        for match in re.finditer(cue + r"[^.;]{0,180}?(" + date_pattern + r")", text, re.I):
+            return parse_date_any(match.group(1))
     return None
 
 
@@ -186,8 +218,14 @@ def find_symbol(text: str):
     return None
 
 
+@lru_cache(maxsize=512)
 def get_fmp_profile(symbol: str):
-    url = f"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={FMP_API_KEY}"
+    directory = get_symbol_directory()
+    if symbol in directory:
+        return directory[symbol]
+    if not FMP_API_KEY:
+        return {"company": symbol, "exchange": ""}
+    url = f"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={FMP_API_KEY}"
     data = safe_get_json(url)
 
     if isinstance(data, list) and data and isinstance(data[0], dict):
@@ -197,7 +235,7 @@ def get_fmp_profile(symbol: str):
             "exchange": p.get("exchangeShortName") or p.get("exchange") or "",
         }
 
-    if isinstance(data, dict):
+    if isinstance(data, dict) and "symbol" in data:
         return {
             "company": data.get("companyName") or symbol,
             "exchange": data.get("exchangeShortName") or data.get("exchange") or "",
@@ -207,6 +245,79 @@ def get_fmp_profile(symbol: str):
         "company": symbol,
         "exchange": "",
     }
+
+
+@lru_cache(maxsize=1)
+def get_symbol_directory():
+    directory = {}
+    exchange_names = {"A": "NYSE American", "N": "NYSE", "P": "NYSE ARCA", "Z": "BATS", "V": "IEX"}
+    for filename in ["nasdaqlisted.txt", "otherlisted.txt"]:
+        r = safe_get("https://www.nasdaqtrader.com/dynamic/SymDir/" + filename)
+        if r is None or r.status_code != 200:
+            continue
+        rows = list(csv.DictReader(io.StringIO(r.text), delimiter="|"))
+        if not rows or "Security Name" not in rows[0]:
+            SOURCE_ERRORS.append(filename + ": invalid symbol directory")
+            continue
+        for row in rows:
+            symbol = row.get("Symbol") or row.get("ACT Symbol")
+            if not symbol or symbol.startswith("File Creation") or row.get("Test Issue") == "Y":
+                continue
+            exchange = "NASDAQ" if filename == "nasdaqlisted.txt" else exchange_names.get(row.get("Exchange"), "")
+            directory[symbol] = {"company": row["Security Name"], "exchange": exchange}
+    return directory
+
+
+def fetch_nasdaq_calendar():
+    global CALENDAR_OK
+    data = safe_get_json("https://api.nasdaq.com/api/calendar/splits")
+    if not isinstance(data, dict) or not isinstance(data.get("data"), dict):
+        SOURCE_ERRORS.append("Nasdaq split calendar unavailable")
+        return []
+    payload = data["data"]
+    rows = payload.get("rows")
+    as_of = payload.get("asOf", "")
+    try:
+        age = (datetime.now(timezone.utc).date() - datetime.strptime(as_of, "%a, %b %d, %Y").date()).days
+    except ValueError:
+        age = 999
+    if age < 0 or age > 3 or (rows is not None and not isinstance(rows, list)) or "rows" not in payload:
+        SOURCE_ERRORS.append("Nasdaq split calendar stale or malformed")
+        return []
+    directory = get_symbol_directory()
+    CALENDAR_OK = bool(directory)
+    result = []
+    for row in rows or []:
+        symbol = row.get("symbol", "")
+        profile = get_fmp_profile(symbol)
+        item = normalize_item(symbol, row.get("name"), profile["exchange"], parse_date_any(row.get("executionDate", "")), row.get("ratio"), "https://www.nasdaq.com/market-activity/stock-splits")
+        if item:
+            result.append(item)
+    print(f"Nasdaq calendar: {len(rows or [])} rows; {len(result)} eligible upcoming splits")
+    return result
+
+
+def fetch_fmp_calendar():
+    global CALENDAR_OK
+    if not FMP_API_KEY:
+        SOURCE_ERRORS.append("FMP_API_KEY missing")
+        return []
+    today = datetime.now(timezone.utc).date()
+    data = safe_get_json(f"https://financialmodelingprep.com/stable/splits-calendar?from={today}&to={today + timedelta(days=60)}&apikey={FMP_API_KEY}")
+    if not isinstance(data, list):
+        SOURCE_ERRORS.append("FMP split calendar unavailable")
+        return []
+    directory = get_symbol_directory()
+    CALENDAR_OK = CALENDAR_OK or bool(directory)
+    result = []
+    for row in data:
+        profile = get_fmp_profile(row.get("symbol", ""))
+        ratio = f"{row['numerator']}:{row['denominator']}" if row.get("numerator") and row.get("denominator") else row.get("ratio")
+        item = normalize_item(row.get("symbol"), profile["company"], profile["exchange"], row.get("date"), ratio, "https://site.financialmodelingprep.com/developer/docs/stable/splits-calendar")
+        if item:
+            result.append(item)
+    print(f"FMP calendar: {len(data)} rows; {len(result)} eligible upcoming splits")
+    return result
 
 
 def is_allowed_exchange(exchange: str):
@@ -302,7 +413,7 @@ def parse_news_item(news_item):
     if not ratio:
         return None
 
-    split_date = parse_date_any(text)
+    split_date = effective_date(text)
     if not split_date:
         return None
 
@@ -370,7 +481,7 @@ def format_daily(items):
     next_60 = [i for i in items if 31 <= i["days_left"] <= 60]
 
     if not next_7 and not next_30 and not next_60:
-        lines.append("No upcoming stock splits found.")
+        lines.append("No confirmed upcoming splits in the available calendar." if CALENDAR_OK else "Split calendar unavailable. Upcoming splits could not be verified; this does not mean there are none.")
         return "\n".join(lines)
 
     if next_7:
@@ -411,7 +522,7 @@ def refresh_state(state):
 
 
 def should_send_daily_report(state):
-    if GITHUB_EVENT_NAME == "workflow_dispatch":
+    if GITHUB_EVENT_NAME in {"workflow_dispatch", "push"}:
         return True
 
     now_utc = datetime.now(timezone.utc)
@@ -430,29 +541,43 @@ def main():
     state.setdefault("daily_reports", {})
     refresh_state(state)
 
-    items = fetch_wire_sources()
+    candidates = fetch_nasdaq_calendar() + fetch_fmp_calendar() + fetch_wire_sources()
+    # Calendar and news can describe the same event. Send it once.
+    unique = {}
+    for item in candidates:
+        key = f"{item['symbol']}|{item['date']}|{item['ratio']}"
+        unique.setdefault(key, item)
+    items = list(unique.values())
     new_items = []
 
     for item in items:
         key = f"{item['symbol']}|{item['date']}|{item['ratio']}"
         if key not in state["announced"]:
-            state["announced"][key] = item
             new_items.append(item)
         else:
             state["announced"][key] = item
 
     for item in new_items:
         send_telegram(format_announcement(item))
+        key = f"{item['symbol']}|{item['date']}|{item['ratio']}"
+        state["announced"][key] = item
+        save_state(state)
 
     current = list(state["announced"].values())
     current.sort(key=lambda x: (x["date"], x["symbol"]))
 
     if should_send_daily_report(state):
-        send_telegram(format_daily(current))
+        report = format_daily(current)
+        if current and not CALENDAR_OK:
+            report += "\n\nCalendar unavailable; showing previously confirmed events and news only."
+        send_telegram(report)
         state["daily_reports"]["splits"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     save_state(state)
     print(f"Done. New: {len(new_items)}. Total tracked: {len(current)}")
+    print(f"Calendar healthy: {CALENDAR_OK}. Source errors: {len(SOURCE_ERRORS)}")
+    if not CALENDAR_OK:
+        raise SystemExit("No healthy split calendar; check source diagnostics above")
 
 
 if __name__ == "__main__":
