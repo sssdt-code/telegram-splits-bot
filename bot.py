@@ -529,9 +529,6 @@ def should_send_daily_report(state):
     today_key = now_utc.strftime("%Y-%m-%d")
     last_sent = state.get("daily_reports", {}).get("splits")
 
-    if now_utc.hour < 22:
-        return False
-
     return last_sent != today_key
 
 
