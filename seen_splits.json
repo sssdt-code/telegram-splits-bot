@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-05"
+    "splits": "2026-10-06"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 14,
+      "days_left": 13,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "POAS|2026-10-12|1:15": {
@@ -28,7 +28,7 @@
       "exchange": "NYSE American",
       "date": "2026-10-12",
       "ratio": "1:15",
-      "days_left": 7,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "DXJ|2026-10-09|3:1": {
@@ -37,7 +37,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-09",
       "ratio": "3:1",
-      "days_left": 4,
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MGF|2026-10-08|1:5": {
@@ -46,7 +46,7 @@
       "exchange": "NYSE",
       "date": "2026-10-08",
       "ratio": "1:5",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MIN|2026-10-08|1:6": {
@@ -55,7 +55,7 @@
       "exchange": "NYSE",
       "date": "2026-10-08",
       "ratio": "1:6",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "GCDT|2026-10-07|1:6": {
@@ -64,7 +64,7 @@
       "exchange": "NYSE American",
       "date": "2026-10-07",
       "ratio": "1:6",
-      "days_left": 2,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ETHA|2026-10-06|1:3": {
@@ -73,7 +73,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-06",
       "ratio": "1:3",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITOC|2026-10-06|1:16": {
@@ -82,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-06",
       "ratio": "1:16",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "RUBI|2026-10-06|1.5:1": {
@@ -91,42 +91,24 @@
       "exchange": "NASDAQ",
       "date": "2026-10-06",
       "ratio": "1.5:1",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SUGP|2026-10-07|1:6": {
+      "symbol": "SUGP",
+      "company": "SU Group Holdings Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-10-07",
+      "ratio": "1:6",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
-    "CMND|2026-10-05|1:8": {
-      "symbol": "CMND",
-      "company": "Clearmind Medicine Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-05",
-      "ratio": "1:8",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "GUTS|2026-10-05|1:12": {
-      "symbol": "GUTS",
-      "company": "Fractyl Health, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-05",
-      "ratio": "1:12",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "SCNX|2026-10-05|1:25": {
-      "symbol": "SCNX",
-      "company": "Scienture Holdings, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-05",
-      "ratio": "1:25",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "VIVK|2026-10-05|1:15": {
-      "symbol": "VIVK",
-      "company": "Vivakor, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-05",
-      "ratio": "1:15",
+    "GPMT|2026-10-06|1:10": {
+      "symbol": "GPMT",
+      "company": "Granite Point Mortgage Trust Inc.",
+      "exchange": "NYSE",
+      "date": "2026-10-06",
+      "ratio": "1:10",
       "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
