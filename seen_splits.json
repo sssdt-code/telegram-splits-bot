@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-07"
+    "splits": "2026-10-08"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 16,
+      "days_left": 15,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 12,
+      "days_left": 11,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "POAS|2026-10-12|1:15": {
@@ -28,7 +28,7 @@
       "exchange": "NYSE American",
       "date": "2026-10-12",
       "ratio": "1:15",
-      "days_left": 5,
+      "days_left": 4,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "DXJ|2026-10-09|3:1": {
@@ -37,7 +37,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-09",
       "ratio": "3:1",
-      "days_left": 2,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MGF|2026-10-08|1:5": {
@@ -46,7 +46,7 @@
       "exchange": "NYSE",
       "date": "2026-10-08",
       "ratio": "1:5",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MIN|2026-10-08|1:6": {
@@ -54,24 +54,6 @@
       "company": "Aberdeen Intermediate Income Fund",
       "exchange": "NYSE",
       "date": "2026-10-08",
-      "ratio": "1:6",
-      "days_left": 1,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "GCDT|2026-10-07|1:6": {
-      "symbol": "GCDT",
-      "company": "Green Circle Decarbonize Technology Limited",
-      "exchange": "NYSE American",
-      "date": "2026-10-07",
-      "ratio": "1:6",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "SUGP|2026-10-07|1:6": {
-      "symbol": "SUGP",
-      "company": "SU Group Holdings Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-10-07",
       "ratio": "1:6",
       "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
@@ -82,7 +64,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-08",
       "ratio": "1:10",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
