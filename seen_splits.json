@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-08"
+    "splits": "2026-10-09"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 11,
+      "days_left": 10,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "POAS|2026-10-12|1:15": {
@@ -28,7 +28,7 @@
       "exchange": "NYSE American",
       "date": "2026-10-12",
       "ratio": "1:15",
-      "days_left": 4,
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "DXJ|2026-10-09|3:1": {
@@ -37,34 +37,52 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-09",
       "ratio": "3:1",
-      "days_left": 1,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "MGF|2026-10-08|1:5": {
-      "symbol": "MGF",
-      "company": "Aberdeen Government Markets Income Fund",
-      "exchange": "NYSE",
-      "date": "2026-10-08",
-      "ratio": "1:5",
       "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
-    "MIN|2026-10-08|1:6": {
-      "symbol": "MIN",
-      "company": "Aberdeen Intermediate Income Fund",
-      "exchange": "NYSE",
-      "date": "2026-10-08",
-      "ratio": "1:6",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "GLE|2026-10-08|1:10": {
-      "symbol": "GLE",
-      "company": "Global Engine Group Holding Limited",
+    "DFLI|2026-10-12|1:8": {
+      "symbol": "DFLI",
+      "company": "Dragonfly Energy Holdings Corp",
       "exchange": "NASDAQ",
-      "date": "2026-10-08",
-      "ratio": "1:10",
-      "days_left": 0,
+      "date": "2026-10-12",
+      "ratio": "1:8",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "MDCX|2026-10-12|1:50": {
+      "symbol": "MDCX",
+      "company": "Medicus Pharma Ltd.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-12",
+      "ratio": "1:50",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NIVF|2026-10-12|1:4": {
+      "symbol": "NIVF",
+      "company": "NewGenIvf Group Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-10-12",
+      "ratio": "1:4",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NXGL|2026-10-12|1:20": {
+      "symbol": "NXGL",
+      "company": "NexGel, Inc",
+      "exchange": "NASDAQ",
+      "date": "2026-10-12",
+      "ratio": "1:20",
+      "days_left": 3,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ZBAO|2026-10-12|1:50": {
+      "symbol": "ZBAO",
+      "company": "Zhibao Technology Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-12",
+      "ratio": "1:50",
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
