@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-13"
+    "splits": "2026-10-14"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 10,
+      "days_left": 9,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,16 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 6,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "FMFC|2026-10-13|1:40": {
-      "symbol": "FMFC",
-      "company": "Kandal M Venture Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-10-13",
-      "ratio": "1:40",
-      "days_left": 0,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SKIN|2026-10-14|1:20": {
@@ -37,6 +28,15 @@
       "exchange": "NASDAQ",
       "date": "2026-10-14",
       "ratio": "1:20",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "BTOC|2026-10-15|1:16": {
+      "symbol": "BTOC",
+      "company": "Armlogi Holding Corp.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-15",
+      "ratio": "1:16",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
