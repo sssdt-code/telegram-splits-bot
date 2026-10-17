@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-16"
+    "splits": "2026-10-17"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 7,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFG|2026-11-05|3:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 20,
+      "days_left": 19,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 20,
+      "days_left": 19,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 20,
+      "days_left": 19,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -55,7 +55,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 20,
+      "days_left": 19,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -64,16 +64,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 20,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "KNDI|2026-10-16|1:10": {
-      "symbol": "KNDI",
-      "company": "Kandi Technologies Group, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-16",
-      "ratio": "1:10",
-      "days_left": 0,
+      "days_left": 19,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CAPS|2026-10-19|1:30": {
@@ -82,7 +73,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:30",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FRGT|2026-10-19|1:10": {
@@ -91,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:10",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "GP|2026-10-19|1:5": {
@@ -100,7 +91,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:5",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "OBAI|2026-10-19|1:20": {
@@ -109,7 +100,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:20",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
