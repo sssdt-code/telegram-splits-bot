@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-18"
+    "splits": "2026-10-19"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,7 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 5,
+      "days_left": 4,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AMTD|2026-10-19|1:60": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE",
       "date": "2026-10-19",
       "ratio": "1:60",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFG|2026-11-05|3:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -55,7 +55,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -64,7 +64,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CAPS|2026-10-19|1:30": {
@@ -73,7 +73,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:30",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FRGT|2026-10-19|1:10": {
@@ -82,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:10",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "GP|2026-10-19|1:5": {
@@ -91,7 +91,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:5",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "OBAI|2026-10-19|1:20": {
@@ -100,6 +100,33 @@
       "exchange": "NASDAQ",
       "date": "2026-10-19",
       "ratio": "1:20",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NYSX|2026-10-30|5:1": {
+      "symbol": "NYSX",
+      "company": "Global X Funds Global X NYSE 100 ETF",
+      "exchange": "NYSE ARCA",
+      "date": "2026-10-30",
+      "ratio": "5:1",
+      "days_left": 11,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "MBRX|2026-10-20|1:20": {
+      "symbol": "MBRX",
+      "company": "Moleculin Biotech, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-20",
+      "ratio": "1:20",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "REVB|2026-10-20|1:7": {
+      "symbol": "REVB",
+      "company": "Revelation Biosciences, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-20",
+      "ratio": "1:7",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
