@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-19"
+    "splits": "2026-10-20"
   },
   "announced": {
     "LU|2026-10-23|1:10": {
@@ -10,16 +10,7 @@
       "exchange": "NYSE",
       "date": "2026-10-23",
       "ratio": "1:10",
-      "days_left": 4,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "AMTD|2026-10-19|1:60": {
-      "symbol": "AMTD",
-      "company": "AMTD IDEA Group",
-      "exchange": "NYSE",
-      "date": "2026-10-19",
-      "ratio": "1:60",
-      "days_left": 0,
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFG|2026-11-05|3:1": {
@@ -28,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 17,
+      "days_left": 16,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -37,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 17,
+      "days_left": 16,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -46,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 17,
+      "days_left": 16,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -55,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 17,
+      "days_left": 16,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -64,43 +55,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 17,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "CAPS|2026-10-19|1:30": {
-      "symbol": "CAPS",
-      "company": "Capstone Holding Corp.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-19",
-      "ratio": "1:30",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "FRGT|2026-10-19|1:10": {
-      "symbol": "FRGT",
-      "company": "Freight Technologies, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-19",
-      "ratio": "1:10",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "GP|2026-10-19|1:5": {
-      "symbol": "GP",
-      "company": "GreenPower Motor Company Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-19",
-      "ratio": "1:5",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "OBAI|2026-10-19|1:20": {
-      "symbol": "OBAI",
-      "company": "Our Bond, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-19",
-      "ratio": "1:20",
-      "days_left": 0,
+      "days_left": 16,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "NYSX|2026-10-30|5:1": {
@@ -109,7 +64,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-30",
       "ratio": "5:1",
-      "days_left": 11,
+      "days_left": 10,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MBRX|2026-10-20|1:20": {
@@ -118,7 +73,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-20",
       "ratio": "1:20",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "REVB|2026-10-20|1:7": {
@@ -127,6 +82,42 @@
       "exchange": "NASDAQ",
       "date": "2026-10-20",
       "ratio": "1:7",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SOXX|2026-11-05|3:1": {
+      "symbol": "SOXX",
+      "company": "iShares PHLX SOX Semiconductor Sector Index Fund",
+      "exchange": "NASDAQ",
+      "date": "2026-11-05",
+      "ratio": "3:1",
+      "days_left": 16,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ENHA|2026-10-29|1:10": {
+      "symbol": "ENHA",
+      "company": "Enhanced Group Inc.",
+      "exchange": "NYSE",
+      "date": "2026-10-29",
+      "ratio": "1:10",
+      "days_left": 9,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "BUUU|2026-10-27|10:1": {
+      "symbol": "BUUU",
+      "company": "BUUU Group Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-10-27",
+      "ratio": "10:1",
+      "days_left": 7,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "EHGO|2026-10-21|1:5": {
+      "symbol": "EHGO",
+      "company": "Eshallgo Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-21",
+      "ratio": "1:5",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
