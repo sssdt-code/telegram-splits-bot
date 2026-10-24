@@ -1,25 +1,16 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-23"
+    "splits": "2026-10-24"
   },
   "announced": {
-    "LU|2026-10-23|1:10": {
-      "symbol": "LU",
-      "company": "Lufax Holding Ltd",
-      "exchange": "NYSE",
-      "date": "2026-10-23",
-      "ratio": "1:10",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
     "EFG|2026-11-05|3:1": {
       "symbol": "EFG",
       "company": "iShares MSCI EAFE Growth ETF",
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -28,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -37,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -46,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -55,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "NYSX|2026-10-30|5:1": {
@@ -64,7 +55,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-30",
       "ratio": "5:1",
-      "days_left": 7,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOXX|2026-11-05|3:1": {
@@ -73,7 +64,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ENHA|2026-10-29|1:10": {
@@ -82,7 +73,7 @@
       "exchange": "NYSE",
       "date": "2026-10-29",
       "ratio": "1:10",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BUUU|2026-10-27|10:1": {
@@ -91,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-27",
       "ratio": "10:1",
-      "days_left": 4,
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BUUU|2026-10-26|10:1": {
@@ -100,34 +91,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "10:1",
-      "days_left": 3,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "HCAI|2026-10-23|1:20": {
-      "symbol": "HCAI",
-      "company": "Huachen AI Parking Management Technology Holding Co., Ltd.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-23",
-      "ratio": "1:20",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "NIVF|2026-10-23|1:8": {
-      "symbol": "NIVF",
-      "company": "NewGenIvf Group Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-10-23",
-      "ratio": "1:8",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "PASW|2026-10-23|1:40": {
-      "symbol": "PASW",
-      "company": "Ping An Biomedical Co., Ltd.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-23",
-      "ratio": "1:40",
-      "days_left": 0,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BDRX|2026-10-26|1:8": {
@@ -136,7 +100,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:8",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "HKPD|2026-10-26|1:20": {
@@ -145,7 +109,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:20",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SXTC|2026-10-26|1:100": {
@@ -154,7 +118,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:100",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "COCH|2026-10-26|1:10": {
@@ -163,7 +127,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:10",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "GCTK|2026-10-26|1:2": {
@@ -172,7 +136,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:2",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "HCTI|2026-10-26|1:20": {
@@ -181,7 +145,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:20",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "IPW|2026-10-26|1:12": {
@@ -190,7 +154,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:12",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "LHSW|2026-10-26|1:8": {
@@ -199,7 +163,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:8",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "PPCB|2026-10-26|1:10": {
@@ -208,7 +172,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:10",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SBFM|2026-10-26|1:20": {
@@ -217,7 +181,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:20",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "TWG|2026-10-26|1:100": {
@@ -226,7 +190,7 @@
       "exchange": "NASDAQ",
       "date": "2026-10-26",
       "ratio": "1:100",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
