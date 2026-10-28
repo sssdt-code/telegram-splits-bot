@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-27"
+    "splits": "2026-10-28"
   },
   "announced": {
     "EFG|2026-11-05|3:1": {
@@ -10,7 +10,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -19,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "NYSX|2026-10-30|5:1": {
@@ -55,7 +55,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-10-30",
       "ratio": "5:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOXX|2026-11-05|3:1": {
@@ -64,7 +64,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 9,
+      "days_left": 8,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ENHA|2026-10-29|1:10": {
@@ -73,52 +73,7 @@
       "exchange": "NYSE",
       "date": "2026-10-29",
       "ratio": "1:10",
-      "days_left": 2,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "BUUU|2026-10-27|10:1": {
-      "symbol": "BUUU",
-      "company": "BUUU Group Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-10-27",
-      "ratio": "10:1",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "PARA|2026-10-27|1:10": {
-      "symbol": "PARA",
-      "company": "Banzai International, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-27",
-      "ratio": "1:10",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "ENLV|2026-10-27|1:16": {
-      "symbol": "ENLV",
-      "company": "Enlivex Ltd.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-27",
-      "ratio": "1:16",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "NUWE|2026-10-27|1:9": {
-      "symbol": "NUWE",
-      "company": "Nuwellis, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-27",
-      "ratio": "1:9",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "SCAG|2026-10-27|1:15": {
-      "symbol": "SCAG",
-      "company": "Scage Future",
-      "exchange": "NASDAQ",
-      "date": "2026-10-27",
-      "ratio": "1:15",
-      "days_left": 0,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MMT|2026-11-09|1:4": {
@@ -127,7 +82,34 @@
       "exchange": "NYSE",
       "date": "2026-11-09",
       "ratio": "1:4",
-      "days_left": 13,
+      "days_left": 12,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ATYR|2026-10-29|1:40": {
+      "symbol": "ATYR",
+      "company": "aTyr Pharma, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-29",
+      "ratio": "1:40",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "OMEX|2026-10-29|1:25": {
+      "symbol": "OMEX",
+      "company": "Odyssey Marine Exploration, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-10-29",
+      "ratio": "1:25",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "AXG|2026-10-29|1:200": {
+      "symbol": "AXG",
+      "company": "Solowin Holdings",
+      "exchange": "NASDAQ",
+      "date": "2026-10-29",
+      "ratio": "1:200",
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
