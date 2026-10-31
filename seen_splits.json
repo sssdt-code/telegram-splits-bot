@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-10-30"
+    "splits": "2026-10-31"
   },
   "announced": {
     "EFG|2026-11-05|3:1": {
@@ -10,7 +10,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -19,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -46,16 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 6,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "NYSX|2026-10-30|5:1": {
-      "symbol": "NYSX",
-      "company": "Global X Funds Global X NYSE 100 ETF",
-      "exchange": "NYSE ARCA",
-      "date": "2026-10-30",
-      "ratio": "5:1",
-      "days_left": 0,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOXX|2026-11-05|3:1": {
@@ -64,7 +55,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 6,
+      "days_left": 5,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MMT|2026-11-09|1:4": {
@@ -73,7 +64,7 @@
       "exchange": "NYSE",
       "date": "2026-11-09",
       "ratio": "1:4",
-      "days_left": 10,
+      "days_left": 9,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "TOPS|2026-11-06|1:10": {
@@ -82,70 +73,7 @@
       "exchange": "NYSE American",
       "date": "2026-11-06",
       "ratio": "1:10",
-      "days_left": 7,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "MASK|2026-10-30|1:4": {
-      "symbol": "MASK",
-      "company": "3 E Network Technology Group Ltd",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:4",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "IVF|2026-10-30|1:4": {
-      "symbol": "IVF",
-      "company": "INVO Fertility, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:4",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "NXXT|2026-10-30|1:10": {
-      "symbol": "NXXT",
-      "company": "NextNRG, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:10",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "RUBI|2026-10-30|1:25": {
-      "symbol": "RUBI",
-      "company": "Rubico Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:25",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "WFF|2026-10-30|1:25": {
-      "symbol": "WFF",
-      "company": "WF Holding Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:25",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "WHLR|2026-10-30|1:6": {
-      "symbol": "WHLR",
-      "company": "Wheeler Real Estate Investment Trust, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-10-30",
-      "ratio": "1:6",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "ZONE|2026-10-30|1:60": {
-      "symbol": "ZONE",
-      "company": "Zone Frontier Inc.",
-      "exchange": "NYSE American",
-      "date": "2026-10-30",
-      "ratio": "1:60",
-      "days_left": 0,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "RETO|2026-11-02|1:8": {
@@ -154,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-02",
       "ratio": "1:8",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "VCIG|2026-11-02|1:18": {
@@ -163,7 +91,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-02",
       "ratio": "1:18",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
