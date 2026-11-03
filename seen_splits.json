@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-11-02"
+    "splits": "2026-11-03"
   },
   "announced": {
     "EFG|2026-11-05|3:1": {
@@ -10,7 +10,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -19,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOXX|2026-11-05|3:1": {
@@ -55,7 +55,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 3,
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MMT|2026-11-09|1:4": {
@@ -64,7 +64,7 @@
       "exchange": "NYSE",
       "date": "2026-11-09",
       "ratio": "1:4",
-      "days_left": 7,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "TOPS|2026-11-06|1:10": {
@@ -73,25 +73,7 @@
       "exchange": "NYSE American",
       "date": "2026-11-06",
       "ratio": "1:10",
-      "days_left": 4,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "RETO|2026-11-02|1:8": {
-      "symbol": "RETO",
-      "company": "ReTo Eco-Solutions, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-02",
-      "ratio": "1:8",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "VCIG|2026-11-02|1:18": {
-      "symbol": "VCIG",
-      "company": "VCI Global Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-11-02",
-      "ratio": "1:18",
-      "days_left": 0,
+      "days_left": 3,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SNDK|2026-11-20|8:1": {
@@ -100,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-20",
       "ratio": "8:1",
-      "days_left": 18,
+      "days_left": 17,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EMBJ|2026-11-16|4:1": {
@@ -109,7 +91,7 @@
       "exchange": "NYSE",
       "date": "2026-11-16",
       "ratio": "4:1",
-      "days_left": 14,
+      "days_left": 13,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BJDX|2026-11-03|1:4": {
@@ -118,7 +100,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-03",
       "ratio": "1:4",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "UFG|2026-11-03|1:10": {
@@ -127,7 +109,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-03",
       "ratio": "1:10",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
