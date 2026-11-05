@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-11-04"
+    "splits": "2026-11-05"
   },
   "announced": {
     "EFG|2026-11-05|3:1": {
@@ -10,7 +10,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EFV|2026-11-05|2:1": {
@@ -19,7 +19,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "2:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MTUM|2026-11-05|4:1": {
@@ -28,7 +28,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QUAL|2026-11-05|4:1": {
@@ -37,7 +37,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "4:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITA|2026-11-05|3:1": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOXX|2026-11-05|3:1": {
@@ -55,7 +55,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "3:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MMT|2026-11-09|1:4": {
@@ -64,7 +64,7 @@
       "exchange": "NYSE",
       "date": "2026-11-09",
       "ratio": "1:4",
-      "days_left": 5,
+      "days_left": 4,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "TOPS|2026-11-06|1:10": {
@@ -73,7 +73,7 @@
       "exchange": "NYSE American",
       "date": "2026-11-06",
       "ratio": "1:10",
-      "days_left": 2,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SNDK|2026-11-20|8:1": {
@@ -82,7 +82,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-20",
       "ratio": "8:1",
-      "days_left": 16,
+      "days_left": 15,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EMBJ|2026-11-16|4:1": {
@@ -91,7 +91,7 @@
       "exchange": "NYSE",
       "date": "2026-11-16",
       "ratio": "4:1",
-      "days_left": 12,
+      "days_left": 11,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "XXII|2026-11-05|1:58": {
@@ -100,7 +100,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "1:58",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EZGO|2026-11-05|1:3": {
@@ -109,7 +109,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "1:3",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "INM|2026-11-05|1:10": {
@@ -118,6 +118,186 @@
       "exchange": "NASDAQ",
       "date": "2026-11-05",
       "ratio": "1:10",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "BITO|2026-11-19|1:2": {
+      "symbol": "BITO",
+      "company": "ProShares Bitcoin ETF",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "BITI|2026-11-19|1:2": {
+      "symbol": "BITI",
+      "company": "ProShares Short Bitcoin ETF",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "RWM|2026-11-19|1:2": {
+      "symbol": "RWM",
+      "company": "ProShares Short Russell2000",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "VIXM|2026-11-19|1:2": {
+      "symbol": "VIXM",
+      "company": "ProShares Trust VIX Mid-Term Futures ETF",
+      "exchange": "BATS",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "UBT|2026-11-19|1:2": {
+      "symbol": "UBT",
+      "company": "ProShares Ultra 20+ Year Treasury",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "EET|2026-11-19|3:1": {
+      "symbol": "EET",
+      "company": "ProShares Ultra MSCI Emerging Markets",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "3:1",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ROM|2026-11-19|3:1": {
+      "symbol": "ROM",
+      "company": "ProShares Ultra Technology",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "3:1",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "DXD|2026-11-19|1:2": {
+      "symbol": "DXD",
+      "company": "ProShares UltraShort Dow30",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "DUG|2026-11-19|1:2": {
+      "symbol": "DUG",
+      "company": "ProShares UltraShort Energy",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "MZZ|2026-11-19|1:4": {
+      "symbol": "MZZ",
+      "company": "ProShares UltraShort MidCap400",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:4",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "QID|2026-11-19|1:4": {
+      "symbol": "QID",
+      "company": "ProShares UltraShort QQQ",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:4",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SSG|2026-11-19|1:2": {
+      "symbol": "SSG",
+      "company": "ProShares UltraShort Semiconductors",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "REW|2026-11-19|1:2": {
+      "symbol": "REW",
+      "company": "ProShares UltraShort Technology",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SMDD|2026-11-19|1:2": {
+      "symbol": "SMDD",
+      "company": "UltraPro Short MidCap400",
+      "exchange": "NYSE ARCA",
+      "date": "2026-11-19",
+      "ratio": "1:2",
+      "days_left": 14,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "CDT|2026-11-06|1:20": {
+      "symbol": "CDT",
+      "company": "CDT Equity Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:20",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NWGL|2026-11-06|1:80": {
+      "symbol": "NWGL",
+      "company": "CL Workshop Group Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:80",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "JSPR|2026-11-06|1:30": {
+      "symbol": "JSPR",
+      "company": "Jasper Therapeutics, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:30",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NEXR|2026-11-06|1:8": {
+      "symbol": "NEXR",
+      "company": "Nexera Technologies Ltd",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:8",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "ONCO|2026-11-06|1:10": {
+      "symbol": "ONCO",
+      "company": "Onconetix, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:10",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "AIIO|2026-11-06|1:25": {
+      "symbol": "AIIO",
+      "company": "Robo.ai Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-06",
+      "ratio": "1:25",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
