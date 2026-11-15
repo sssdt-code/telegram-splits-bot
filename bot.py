@@ -4,6 +4,7 @@ import json
 import html
 import csv
 import io
+import time
 from functools import lru_cache
 import requests
 import xml.etree.ElementTree as ET
@@ -62,10 +63,38 @@ def send_telegram(text: str):
         "text": text,
         "disable_web_page_preview": True,
     }
-    r = requests.post(url, json=payload, timeout=30)
-    print("Telegram status:", r.status_code)
-    if r.status_code != 200 or not r.json().get("ok"):
-        raise RuntimeError(f"Telegram delivery failed (HTTP {r.status_code})")
+    # Retry transient failures, but keep permanent errors visible.
+    for attempt in range(4):
+        delay = 2 ** (attempt + 1)
+        try:
+            r = requests.post(url, json=payload, timeout=30)
+        except (requests.ConnectionError, requests.Timeout):
+            if attempt == 3:
+                # Do not expose the token-bearing URL in exception traces.
+                raise RuntimeError("Telegram delivery failed after 4 network attempts") from None
+            print(f"Telegram network error; retrying in {delay}s")
+        else:
+            print("Telegram status:", r.status_code)
+            try:
+                result = r.json()
+            except ValueError:
+                result = {}
+            if r.status_code == 200 and result.get("ok"):
+                return
+            if r.status_code != 429 and not 500 <= r.status_code < 600:
+                raise RuntimeError(f"Telegram delivery failed (HTTP {r.status_code})")
+            if attempt == 3:
+                raise RuntimeError(f"Telegram delivery failed after 4 attempts (HTTP {r.status_code})")
+            if r.status_code == 429:
+                retry_after = result.get("parameters", {}).get("retry_after", delay)
+                try:
+                    delay = max(delay, float(retry_after))
+                except (TypeError, ValueError):
+                    pass
+                if delay > 120:
+                    raise RuntimeError("Telegram rate limit exceeds retry window")
+            print(f"Telegram temporarily unavailable; retrying in {delay}s")
+        time.sleep(delay)
 
 
 def safe_get(url: str):
