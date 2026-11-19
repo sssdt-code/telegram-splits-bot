@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-11-18"
+    "splits": "2026-11-19"
   },
   "announced": {
     "SNDK|2026-11-20|8:1": {
@@ -10,7 +10,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-20",
       "ratio": "8:1",
-      "days_left": 2,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BITO|2026-11-19|1:2": {
@@ -19,7 +19,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BITI|2026-11-19|1:2": {
@@ -28,7 +28,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "RWM|2026-11-19|1:2": {
@@ -37,7 +37,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "VIXM|2026-11-19|1:2": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "UBT|2026-11-19|1:2": {
@@ -55,7 +55,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "EET|2026-11-19|3:1": {
@@ -64,7 +64,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "3:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ROM|2026-11-19|3:1": {
@@ -73,7 +73,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "3:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "DXD|2026-11-19|1:2": {
@@ -82,7 +82,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "DUG|2026-11-19|1:2": {
@@ -91,7 +91,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MZZ|2026-11-19|1:4": {
@@ -100,7 +100,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:4",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "QID|2026-11-19|1:4": {
@@ -109,7 +109,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:4",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SSG|2026-11-19|1:2": {
@@ -118,7 +118,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "REW|2026-11-19|1:2": {
@@ -127,7 +127,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SMDD|2026-11-19|1:2": {
@@ -136,7 +136,7 @@
       "exchange": "NYSE ARCA",
       "date": "2026-11-19",
       "ratio": "1:2",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CBSH|2026-12-01|5%": {
@@ -145,7 +145,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-01",
       "ratio": "5%",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "BIB|2026-11-19|2:1": {
@@ -154,7 +154,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-19",
       "ratio": "2:1",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "LARK|2026-12-02|5%": {
@@ -163,7 +163,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-02",
       "ratio": "5%",
-      "days_left": 14,
+      "days_left": 13,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SOS|2026-11-19|1:20": {
@@ -172,7 +172,7 @@
       "exchange": "NYSE",
       "date": "2026-11-19",
       "ratio": "1:20",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ITP|2026-11-23|1:40": {
@@ -181,7 +181,7 @@
       "exchange": "NYSE American",
       "date": "2026-11-23",
       "ratio": "1:40",
-      "days_left": 5,
+      "days_left": 4,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "VABK|2026-11-20|8%": {
@@ -190,7 +190,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-20",
       "ratio": "8%",
-      "days_left": 2,
+      "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MYND|2026-12-07|2:15": {
@@ -199,7 +199,7 @@
       "exchange": "NYSE American",
       "date": "2026-12-07",
       "ratio": "2:15",
-      "days_left": 19,
+      "days_left": 18,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SITM|2026-12-07|3:1": {
@@ -208,25 +208,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-07",
       "ratio": "3:1",
-      "days_left": 19,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "MKDW|2026-11-18|1:20": {
-      "symbol": "MKDW",
-      "company": "MKDWELL Tech Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-18",
-      "ratio": "1:20",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "SPWR|2026-11-18|1:35": {
-      "symbol": "SPWR",
-      "company": "SunPower Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-18",
-      "ratio": "1:35",
-      "days_left": 0,
+      "days_left": 18,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AAOG|2026-12-09|1:50": {
@@ -235,7 +217,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:50",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AEHG|2026-12-09|1:10": {
@@ -244,7 +226,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ASTG|2026-12-09|1:10": {
@@ -253,7 +235,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AXTL|2026-12-09|1:40": {
@@ -262,7 +244,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:40",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CBRG|2026-12-09|1:40": {
@@ -271,7 +253,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:40",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CIEG|2026-12-09|1:10": {
@@ -280,7 +262,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "COHH|2026-12-09|1:10": {
@@ -289,7 +271,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FOMG|2026-12-09|1:10": {
@@ -298,7 +280,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FPSX|2026-12-09|1:20": {
@@ -307,7 +289,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:20",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SNDG|2026-12-09|1:10": {
@@ -316,7 +298,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 21,
+      "days_left": 20,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SCNI|2026-11-19|1:4": {
@@ -325,7 +307,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-19",
       "ratio": "1:4",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SNTI|2026-11-19|1:33": {
@@ -334,7 +316,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-19",
       "ratio": "1:33",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "YFOR|2026-11-19|1:50": {
@@ -343,6 +325,33 @@
       "exchange": "NASDAQ",
       "date": "2026-11-19",
       "ratio": "1:50",
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "LICN|2026-11-20|1:100": {
+      "symbol": "LICN",
+      "company": "Lichen International Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-11-20",
+      "ratio": "1:100",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NTCL|2026-11-20|1:10": {
+      "symbol": "NTCL",
+      "company": "NETCLASS TECHNOLOGY INC",
+      "exchange": "NASDAQ",
+      "date": "2026-11-20",
+      "ratio": "1:10",
+      "days_left": 1,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "NIXX|2026-11-20|1:20": {
+      "symbol": "NIXX",
+      "company": "Nixxy, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-20",
+      "ratio": "1:20",
       "days_left": 1,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
