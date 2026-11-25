@@ -1,7 +1,7 @@
 {
   "seen": [],
   "daily_reports": {
-    "splits": "2026-11-24"
+    "splits": "2026-11-25"
   },
   "announced": {
     "CBSH|2026-12-01|5%": {
@@ -10,7 +10,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-01",
       "ratio": "5%",
-      "days_left": 7,
+      "days_left": 6,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "LARK|2026-12-02|5%": {
@@ -19,7 +19,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-02",
       "ratio": "5%",
-      "days_left": 8,
+      "days_left": 7,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "MYND|2026-12-07|2:15": {
@@ -28,7 +28,7 @@
       "exchange": "NYSE American",
       "date": "2026-12-07",
       "ratio": "2:15",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SITM|2026-12-07|3:1": {
@@ -37,7 +37,7 @@
       "exchange": "NASDAQ",
       "date": "2026-12-07",
       "ratio": "3:1",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AAOG|2026-12-09|1:50": {
@@ -46,7 +46,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:50",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AEHG|2026-12-09|1:10": {
@@ -55,7 +55,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ASTG|2026-12-09|1:10": {
@@ -64,7 +64,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "AXTL|2026-12-09|1:40": {
@@ -73,7 +73,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:40",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CBRG|2026-12-09|1:40": {
@@ -82,7 +82,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:40",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "CIEG|2026-12-09|1:10": {
@@ -91,7 +91,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "COHH|2026-12-09|1:10": {
@@ -100,7 +100,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FOMG|2026-12-09|1:10": {
@@ -109,7 +109,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FPSX|2026-12-09|1:20": {
@@ -118,7 +118,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:20",
-      "days_left": 15,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "SNDG|2026-12-09|1:10": {
@@ -127,61 +127,7 @@
       "exchange": "BATS",
       "date": "2026-12-09",
       "ratio": "1:10",
-      "days_left": 15,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "CCTG|2026-11-24|1:20": {
-      "symbol": "CCTG",
-      "company": "CCSC Technology International Holdings Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:20",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "CODX|2026-11-24|1:25": {
-      "symbol": "CODX",
-      "company": "Co-Diagnostics, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:25",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "GFAI|2026-11-24|1:40": {
-      "symbol": "GFAI",
-      "company": "Guardforce AI Co., Limited",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:40",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "ISPC|2026-11-24|1:6": {
-      "symbol": "ISPC",
-      "company": "iSpecimen Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:6",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "JAGX|2026-11-24|1:25": {
-      "symbol": "JAGX",
-      "company": "Jaguar Health, Inc.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:25",
-      "days_left": 0,
-      "source": "https://www.nasdaq.com/market-activity/stock-splits"
-    },
-    "RBNE|2026-11-24|1:75": {
-      "symbol": "RBNE",
-      "company": "Robin Energy Ltd.",
-      "exchange": "NASDAQ",
-      "date": "2026-11-24",
-      "ratio": "1:75",
-      "days_left": 0,
+      "days_left": 14,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "ACP|2026-12-07|1:4": {
@@ -190,7 +136,7 @@
       "exchange": "NYSE",
       "date": "2026-12-07",
       "ratio": "1:4",
-      "days_left": 13,
+      "days_left": 12,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "TOVX|2026-12-02|1:30": {
@@ -199,7 +145,7 @@
       "exchange": "NYSE American",
       "date": "2026-12-02",
       "ratio": "1:30",
-      "days_left": 8,
+      "days_left": 7,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "FNUC|2026-11-25|1:15": {
@@ -208,7 +154,7 @@
       "exchange": "NASDAQ",
       "date": "2026-11-25",
       "ratio": "1:15",
-      "days_left": 1,
+      "days_left": 0,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     },
     "PASG|2026-11-25|1:6": {
@@ -217,7 +163,88 @@
       "exchange": "NASDAQ",
       "date": "2026-11-25",
       "ratio": "1:6",
-      "days_left": 1,
+      "days_left": 0,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "DDC|2026-11-30|1:7.99": {
+      "symbol": "DDC",
+      "company": "DDC Enterprise Limited",
+      "exchange": "NYSE American",
+      "date": "2026-11-30",
+      "ratio": "1:7.99",
+      "days_left": 5,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "GMEX|2026-11-27|1:19": {
+      "symbol": "GMEX",
+      "company": "GMEX ROBOTICS CORPORATION",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:19",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "HUDI|2026-11-27|1:8": {
+      "symbol": "HUDI",
+      "company": "Huadi International Group Co., Ltd.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:8",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "INLF|2026-11-27|1:16": {
+      "symbol": "INLF",
+      "company": "INLIF LIMITED",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:16",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "INEO|2026-11-27|1:5": {
+      "symbol": "INEO",
+      "company": "INNEOVA Holdings Limited",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:5",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "PFSA|2026-11-27|1:8": {
+      "symbol": "PFSA",
+      "company": "Profusa, Inc.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:8",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SPRC|2026-11-27|1:5": {
+      "symbol": "SPRC",
+      "company": "SciSparc Ltd.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:5",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "SGLY|2026-11-27|1:10": {
+      "symbol": "SGLY",
+      "company": "Singularity Future Technology Ltd.",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:10",
+      "days_left": 2,
+      "source": "https://www.nasdaq.com/market-activity/stock-splits"
+    },
+    "YAAS|2026-11-27|1:6": {
+      "symbol": "YAAS",
+      "company": "Youxin Technology Ltd",
+      "exchange": "NASDAQ",
+      "date": "2026-11-27",
+      "ratio": "1:6",
+      "days_left": 2,
       "source": "https://www.nasdaq.com/market-activity/stock-splits"
     }
   }
